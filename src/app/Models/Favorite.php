@@ -5,22 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Profile extends Model
+class Favorite extends Model
 {
     use HasFactory;
 
-    protected $fillable =[
-        'user_id',
-        'avatar',
-        'username',
-        'postal_code',
-        'address',
-        'building',
-    ];
-
-    public function user()
-    {
+    public function user() {
         return $this->belongsTo(User::class);
+    }
+
+    public function product() {
+        return $this->belongsTo(Product::class);
     }
 
     public function favorites() {

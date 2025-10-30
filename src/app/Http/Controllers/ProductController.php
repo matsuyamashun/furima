@@ -11,9 +11,36 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::all();
-        
+        $user = Product::all();
 
-        return view('index',compact('products',));
+        $products = Product::query()
+        ->when($user,function($query) use($user){
+            $query->where('user_id', '!=',$user->id);
+        })
+        ->get();
+        $tab = 'recommend';
+       
+        return view('index',compact('products','tab'));
+    }
+
+    public function mylist()
+    {
+        $user =  Auth::user();
+        $products = $user->favorites ?? collect();
+        $tab = 'mylist';
+        return view('index',compact('products','tab'));
+    }
+
+    public function store(Request $request)
+    {
+        $path = $request->file('image')->store('public/images');
+        $filename = basename($path);
+
+        Product::create([
+            'name' => $request->name,
+            'image_url' =>'images/' . $filename,
+        ]);
+
+        return redirect()->route('index');
     }
 }
