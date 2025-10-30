@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>furima</title>
+  <link rel="stylesheet" href="{{ asset('css/sanitize.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/common.css') }}">
+   <link rel="stylesheet" href="{{ asset('css/index.css') }}">
+</head>
+
+<body>
+    <header class="header">
+        <div class="header__inner">
+            <div class="header-utilities">
+                <a class="header__logo" href="/register"> 
+                    <img src="{{ asset('images/logo.svg')}}" alt="logo">   
+                </a>
+            </div>
+        </div>
+    </header>
+    <main>
+    </main>
+</body>
