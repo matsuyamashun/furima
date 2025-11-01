@@ -32,8 +32,8 @@
                 <a href="{{ route('login') }}" class="header__link">ログイン</a>
 
             @endauth
-                <a href="" class="header__link">マイページ</a>
-                <a href="" class="header__link__sell">出品</a>
+                <a href="{{ route('mypage') }}" class="header__link">マイページ</a>
+                <a href="{{ route('sell') }}" class="header__link__sell">出品</a>
             </div>
         </div>
     </header>

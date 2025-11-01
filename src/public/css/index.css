@@ -80,6 +80,14 @@ span{
     color:red;
 }
 
+.product__list {
+    width:100%;
+    display: flex;
+    gap:15px; 
+    flex-wrap: wrap;
+    margin: 40px;
+}
+
 
 @media (max-width: 768px) {
 

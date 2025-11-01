@@ -32,8 +32,8 @@
                 <a href="{{ route('login') }}" class="header__link">ログイン</a>
 
             @endauth
-                <a href="" class="header__link">マイページ</a>
-                <a href="" class="header__link__sell">出品</a>
+                <a href="{{ route('mypage') }}" class="header__link">マイページ</a>
+                <a href="{{ route('sell') }}" class="header__link__sell">出品</a>
             </div>
         </div>
     </header>
@@ -50,7 +50,12 @@
         <div class="product__list">
             @forelse($products as $product)
                 <div class="product__card">
-                    <img src="{{ asset('storage/' . $product->image_url)}}" alt="商品画像">
+                    <img src="{{ $product->image_url 
+                    ? (Str::startsWith($product->image_url, 'http') 
+                    ? $product->image_url 
+                    : asset('storage/' . $product->image_url)) 
+                    : '' }}"  width="250"
+                    height="250">
                 <p>{{ $product->name }}</p>
 
                 @if($product->is_sold)

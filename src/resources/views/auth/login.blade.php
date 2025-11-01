@@ -10,7 +10,7 @@
 
 <form class="content__form" action="{{ route('login')}}" method="POST" novalidate>
     @csrf
-    <!-- メールアドレス -->
+   
     <div class="form__group">
         <label>メールアドレス</label>
             <input class="form__mail__input" type="email" name="email">
@@ -18,7 +18,7 @@
     @error('email')
         <div class="form__error">{{$message}}</div>
     @enderror
-    <!-- パスワード -->
+   
     <div class="form__group">
         <label>パスワード</label>
             <input class="form__password-input" type="password" name="password">
