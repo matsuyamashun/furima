@@ -16,11 +16,13 @@ class CreateProductsTable extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('category');
             $table->integer('price');
             $table->string('brand')->nullable();
             $table->text('description');
             $table->string('image_url');
             $table->string('condition');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

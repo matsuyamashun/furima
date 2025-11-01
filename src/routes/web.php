@@ -20,4 +20,8 @@ Route::middleware('auth')->group(function ()
 
 Route::post('/register', [CustomRegisterController::class, 'store'])->name('register.store');
 
+Route::get('/sell',[ProductController::class,'sell'])->name('sell');
+
+Route::post('/sell',[ProductController::class,'store'])->name('sell.store');
+
 

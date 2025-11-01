@@ -13,11 +13,21 @@ class Product extends Model
         'name',
         'image_url',
         'user_id',
+        'price',
+        'condition',
+        'brand',
+        'description',
+        'category',
     ];
 
     public function getIsSoldAttribute()
     {
         return !is_null($this->buyer_id);
+    }
+
+    public function favorites()
+    {
+        return $this->hasMany(Favorite::class);
     }
 
 }
