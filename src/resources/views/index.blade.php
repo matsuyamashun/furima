@@ -14,13 +14,57 @@
 <body>
     <header class="header">
         <div class="header__inner">
-            <div class="header-utilities">
-                <a class="header__logo" href="/register"> 
+                <a class="header__logo"> 
                     <img src="{{ asset('images/logo.svg')}}" alt="logo">   
                 </a>
+
+                <form action= method="GET" class="header__search__form">
+                    <input type="text" name="seach" placeholder="　　なにをお探しですか？" class="header__search-input">
+                </form>
+
+            <div class="header__nav">
+            @auth
+                <form action="{{ route('logout') }}" method="POST" style="display:inline;">
+                    @csrf
+                    <button type="submit" class="header__link__button__logout">ログアウト</button>
+                </form>
+            @else
+                <a href="{{ route('login') }}" class="header__link">ログイン</a>
+
+            @endauth
+                <a href="{{ route('mypage') }}" class="header__link">マイページ</a>
+                <a href="{{ route('sell') }}" class="header__link__sell">出品</a>
             </div>
         </div>
     </header>
-    <main>
+    <main class="main">
+        <div class="menu">
+            <a href="{{ route('index')}}" class="menu__tab{{$tab === 'recommend' ? 'active' : ''}}">
+                おすすめ
+            </a>
+            <a href="{{ route('mylist')}}" class="menu__tab{{ $tab === 'recommend' ? 'active' : ''}}">
+                <span>マイリスト</span>
+            </a>
+        </div>
+
+        <div class="product__list">
+            @forelse($products as $product)
+                <div class="product__card">
+                    <img src="{{ $product->image_url 
+                    ? (Str::startsWith($product->image_url, 'http') 
+                    ? $product->image_url 
+                    : asset('storage/' . $product->image_url)) 
+                    : '' }}"  width="250"
+                    height="250">
+                <p>{{ $product->name }}</p>
+
+                @if($product->is_sold)
+                    <p class="product__sold">SOLD</p>
+                @endif
+                </div>
+            @empty
+                <p>商品がありません</p>
+            @endforelse
+        </div>
     </main>
 </body>

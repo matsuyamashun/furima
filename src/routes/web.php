@@ -10,6 +10,7 @@ Route::middleware('auth')->group(function ()
 {
 
     Route::get('/', [ProductController::class, 'index'])->name('index');
+    Route::get('/mylist',[ProductController::class,'mylist'])->name('mylist');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -18,5 +19,9 @@ Route::middleware('auth')->group(function ()
 });
 
 Route::post('/register', [CustomRegisterController::class, 'store'])->name('register.store');
+
+Route::get('/sell',[ProductController::class,'sell'])->name('sell');
+
+Route::post('/sell',[ProductController::class,'store'])->name('sell.store');
 
 

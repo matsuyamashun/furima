@@ -32,8 +32,8 @@
                 <a href="{{ route('login') }}" class="header__link">ログイン</a>
 
             @endauth
-                <a href="" class="header__link">マイページ</a>
-                <a href="" class="header__link__sell">出品</a>
+                <a href="{{ route('mypage') }}" class="header__link">マイページ</a>
+                <a href="{{ route('sell') }}" class="header__link__sell">出品</a>
             </div>
         </div>
     </header>
@@ -42,35 +42,51 @@
             <h2 class="content__title">プロフィール設定</h2>
         </div>
 
-        <form class="content__form" action="{{ route('profile.update')}}" method="POST">
+        <form class="content__form" action="{{ route('profile.update')}}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PATCH')
             <div class="profile-avatar">
                 <img 
                  src="{{ $profile && $profile->avatar ? asset('storage/'.$profile->avatar) : 'https://via.placeholder.com/150' }}"
-                alt="画像"
-                >
+                alt="画像" class="profile-img">
                     <label class="btn-upload">
                         画像を選択する
                     <input type="file" name="avatar" hidden>
                     </label>
+                    @error('avatar')
+                        <div class="form__error">{{$message}}</div>
+                    @enderror
             </div>
+
             <div class="form__group">
                 <label>ユーザー名</label>
                 <input class="form__name__input"  type="text"name="username" value="{{old('username',$profile->username ?? '')}}">
+            @error('username')
+                <div class="form__error">{{$message}}</div>
+            @enderror
             </div>
+
             <div class="form__group">
                 <label>郵便番号</label>
-                <input class="form__postal__input"  type="text"name="postal_code" value="{{old('postal_code',$frofile->postal_code ?? '')}}">
+                <input class="form__postal__input"  type="text"name="postal_code" value="{{old('postal_code',$profile->postal_code ?? '')}}">
+                @error('postal_code')
+                    <div class="form__error">{{$message}}</div>
+                @enderror
             </div>
+
             <div class="form__group">
                 <label>住所</label>
-                <input class="form__address__input"  type="text"name="address" value="{{old('address',$frofile->address ?? '')}}">
+                <input class="form__address__input"  type="text"name="address" value="{{old('address',$profile->address ?? '')}}">
+                @error('address')
+                    <div class="form__error">{{$message}}</div>
+                @enderror
             </div>
+
             <div class="form__group">
                 <label>建物名</label>
-                <input class="form__building__input"  type="text"name="building" value="{{old('building',$frofile->building ?? '')}}">
+                <input class="form__building__input"  type="text"name="building" value="{{old('building',$profile->building ?? '')}}">
             </div>
+
             <div class="form__group">
                 <button class="form__button">更新する</button>
             </div>

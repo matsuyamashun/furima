@@ -98,7 +98,10 @@ class ProductSeeder extends Seeder
         ];
 
         foreach($products as $product) {
-            Product::create($product);
+            Product::create(array_merge($product,[
+                'user_id'=>1,
+                'category' => 'ファッション'
+            ]));
         }
     }
 }
