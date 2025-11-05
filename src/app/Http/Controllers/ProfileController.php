@@ -13,10 +13,11 @@ use App\Http\Requests\ProfileRequest;
 class ProfileController extends Controller
 {
         public function edit()
-    {
+
+       {
         $user = Auth::user();
         $profile = $user->profile; 
-        return view('profile', compact('profile'));
+        return view('profile', compact('user','profile'));
     }
 
     public function update(ProfileRequest $request)
@@ -38,7 +39,8 @@ class ProfileController extends Controller
 
             $profile->avatar = $path;
         }
-
+        
+        $profile->user_id = $user->id;
         $profile->postal_code = $request->postal_code;
         $profile->username = $request->username;
         $profile->address = $request->address;

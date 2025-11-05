@@ -20,14 +20,34 @@ class Product extends Model
         'category',
     ];
 
-    public function getIsSoldAttribute()
-    {
-        return !is_null($this->buyer_id);
-    }
+    public function getConditionLabelAttribute()
+{
+    return match($this->condition) {
+        'new', '良好' => '良好',
+        'like_new', '目立った傷や汚れなし' => '目立った傷や汚れなし',
+        'fair', 'やや傷や汚れあり' => 'やや傷や汚れあり',
+        'poor', '状態が悪い' => '状態が悪い',
+        default => '不明',
+    };
+}
 
     public function favorites()
     {
         return $this->hasMany(Favorite::class);
     }
 
+    public function favoritedBy() 
+    {
+        return $this->belongsToMany(User::class,'favorites', 'product_id', 'user_id')->withTimestamps();
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class);
+    }
 }
