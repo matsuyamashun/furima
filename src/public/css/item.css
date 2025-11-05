@@ -57,42 +57,12 @@
     padding: 5px 10px;
 }
 
-.main{
-    margin: 40px auto;
-    width:100%;
-}
-
-.menu{
-    border-bottom: 1px solid #868585;
-    
+.puroduct__content{
     display: flex;
-    margin: 20px 0;
-}
-
-.menu a {
-    margin-bottom: 10px;
-    text-decoration: none;
-    margin-left: 70px;
-    color:rgb(136, 134, 134);
-}
-
-span{
-    color:red;
-}
-
-
-.product__list {
-    width: 100%;
-    display: flex;
-    gap: 40px;
-    flex-wrap: wrap;
+    width: 90%;
     justify-content: center;
-}
-
-.product__card a {
-    text-decoration: none;
-    color: black; 
-    cursor: pointer;
+    gap:50px;
+    margin: 40px auto;
 }
 
 @media (max-width: 768px) {
@@ -132,7 +102,4 @@ span{
         font-size: 10px;
     }
 
-    .main{
-        margin: 80px auto;
-    }
 }

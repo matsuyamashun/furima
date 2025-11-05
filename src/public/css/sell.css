@@ -138,6 +138,10 @@
     margin: 15px 0;
 }
 
+.category__tag input[type="checkbox"] {
+    display: none;
+}
+
 .tag {
     color:rgb(247, 86, 86);
     margin:3px;
@@ -146,10 +150,9 @@
     padding: 3px 8px;
     font-size: 10px;
     cursor: pointer;
-    user-select: none;
 }
 
-.category__tag input[type="radio"]:checked + .tag{
+.category__tag input[type="checkbox"]:checked + .tag{
     color:white;
     background-color: red;
 }

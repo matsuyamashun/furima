@@ -5,16 +5,16 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>furima</title>
+  <title>mypage</title>
   <link rel="stylesheet" href="{{ asset('css/sanitize.css') }}">
   <link rel="stylesheet" href="{{ asset('css/common.css') }}">
-   <link rel="stylesheet" href="{{ asset('css/index.css') }}">
+   <link rel="stylesheet" href="{{ asset('css/mypage.css') }}">
 </head>
 
 <body>
     <header class="header">
         <div class="header__inner">
-                <a class="header__logo"> 
+                <a class="header__logo" href="/"> 
                     <img src="{{ asset('images/logo.svg')}}" alt="logo">   
                 </a>
 
@@ -37,32 +37,43 @@
             </div>
         </div>
     </header>
+
     <main class="main">
+
+        <div class="profile__wrapper">
+            <div class="profile">
+                <div class="profile__image">
+                    <img src="{{ $user->profile && $user->profile->avatar ? asset('storage/' . $user->profile->avatar) : asset('images/default.png') }}" alt="画像なし">
+                </div>
+
+                <div class="profile__info">
+                    <h2 class="profile__name">{{$user->name}}</h2>
+                    <a class="profile__edit" href="{{ route('profile.edit') }}">プロフィールを編集</a>
+                </div>
+            </div>
+        </div>
+        
         <div class="menu">
-            <a href="{{ route('index')}}" class="menu__tab{{($tab ?? '') === 'recommend' ? 'active' : ''}}">
-                おすすめ
+            <a href="{{ route('mypage')}}" class="menu__tab{{$tabMypage === 'listed' ? 'active' : ''}}">
+                <span>出品した商品</span>
             </a>
-            <a href="{{ route('favorite.index')}}" class="menu__tab{{ ($tab ?? '') === 'mylist' ? 'active' : ''}}">
-                <span>マイリスト</span>
+            <a href="{{ route('purchased')}}" class="menu__tab{{$tabMypage === 'purchased' ? 'active' : ''}}">
+                購入した商品
             </a>
         </div>
 
         <div class="product__list">
-            @forelse($products as $product)
+            @forelse($myproducts as $product)
                 <div class="product__card">
-                    <a href="{{ route('item',$product->id) }}">
+                    <a href="{{ route('item',['id' =>$product->id]) }}">
                         <img src="{{ $product->image_url 
                         ? (Str::startsWith($product->image_url, 'http') 
                         ? $product->image_url 
                         : asset('storage/' . $product->image_url)) 
-                        : '' }}"  width="250"
+                        : '' }}"  alt="商品画像" width="250" 
                         height="250">
-                        <p>{{ $product->name }}</p>
-                    </a>
-
-                @if($product->is_sold)
-                    <p class="product__sold">SOLD</p>
-                @endif
+                    </a>  
+                    <p>{{ $product->name }}</p>
                 </div>
             @empty
                 <p>商品がありません</p>
