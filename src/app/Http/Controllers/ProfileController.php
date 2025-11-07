@@ -48,6 +48,6 @@ class ProfileController extends Controller
 
         $profile->save();
 
-        return redirect()->route('index')->with('success','プロフィールを更新しました');
+        return redirect()->route('index');
     }
 }

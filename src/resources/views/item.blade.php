@@ -42,64 +42,108 @@
         <div class="puroduct__content">
             <div class="product__image">
                 <img src="{{ $product->image_url 
-                        ? (Str::startsWith($product->image_url, 'http') 
-                        ? $product->image_url 
-                        : asset('storage/' . $product->image_url)) 
-                        : '' }}"  width="250"
-                        height="250"alt="商品画像" width="300px" height="300px">
+                    ? (Str::startsWith($product->image_url, 'http') 
+                    ? $product->image_url 
+                    : asset('storage/' . $product->image_url)) 
+                    : '' }}"  width="400"
+                    height="400"alt="商品画像" >
             </div>
 
             <div class="product__detail">
                 <h1 class="product__title">{{$product->name}}</h1>
-                <p class="product__brand">{{$product->brand}}</p>
+                <p class="product__brand">{{$product->brand ?? 'ブランドなし'}}</p>
                 <p class="product__price">￥{{$product->price}}(税込)</p>
-
+                
                 @auth
-                    <div class="favorite__area">
+                <div class="favorite">
+                    <div class="fvorite__area">
                         @if(auth()->user()->favoriteProducts()->where('product_id', $product->id)->exists())
 
                         <form action="{{ route('favorite.destroy', $product->id) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                            <button type="submit" class="favorite__button">❤️ お気に入り解除</button>
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="favorite__button">⭐ </button>
                         </form>
-                        @else
-                    
+                @else
+
                         <form action="{{ route('favorite.store', $product->id) }}" method="POST">
-                        @csrf
-                            <button type="submit" class="favorite__button">🤍 お気に入り</button>
+                            @csrf
+                            <button type="submit" class="favorite__button">☆</button>
                         </form>
-                        @endif
+                @endif
+                        <p class="favorite__count">
+                            {{ $product->favorites()->count() }}</p>
                     </div>
+ 
+                    <div class="comment__area">
+                        💬
+                        <p class="comment__icon">{{ $product->comments->count() }}</p>
+                    </div>
+                </div>
+
+                <a class="product__button" href="{{ route('purchase')}}">購入手続きへ</a>
                 @endauth
+                
+                <section class="product__description">
+                    <h2 class="product__title">商品説明</h2>
+                    <p>{{$product->description}}</p>
+                </section>
 
-                <button class="product__button">購入手続きへ</button>
-            </div>
+                <section class="product__infomation">
+                    <h2 class="product__title">商品の情報</h2>
 
-            <div class="product__description">
-                <section class="product__title">商品説明</section>
-                <p class="product__description__comment">{{$product->description}}</p>
-            </div>
-
-            <div class="product__infomation">
-                <section class="product__title">商品の情報</section>
-                    <h4 class="product__category">カテゴリー</h4>
-                    <p class="product__category__type">
-                       @foreach($product->categories as $category) 
-                           {{$category->name}}@if (!$loop->last),@endif
-                        @endforeach
-                    </p>
+                    <div class="information__row">
+                        <span class="information__label">カテゴリー</span>
+                        <span class="information__category">
+                            @foreach($product->categories as $category) 
+                               {{$category->name}}@if (!$loop->last),@endif
+                            @endforeach
+                        </span>
+                    </div>
                     
-                    <h4 class="product__condition">商品の状態</h2>
-                    <p class="product__condition__type">
-                        {{$product->condition_label}}
-                    </p>
-            </div>
+                    <div class="information__row">
+                        <span class="information__label">商品の状態</span>
+                        <span
+                        class="information__condition">
+                            {{$product->condition_label}}
+                        </span>
+                    </div>
+                </section>
             
-            <div class="product__comment">
-                <section class="product__comment__title">コメント</section>
-                    
+                <div class="product__comment">
+                    <section class="product__comment">
+                        コメント（{{ $product->comments->count() }}）
+                    </section>
+
+                    @foreach($product->comments as $comment)
+                        <div class="comment__item">
+                            <img 
+                            src="{{ $comment->user->profile && $comment->user->profile->avatar 
+                            ? asset('storage/' . $comment->user->profile->avatar) 
+                            : asset('images/default.png') }}" 
+                            alt="ユーザー画像" 
+                            class="comment__avatar">
+
+                            <p class="comment__user">{{ $comment->user->name}}</p>
+                        </div>
+                            <p class="comment__text">{{ $comment->content}}
+                            </p>
+                    @endforeach
+
+                    @auth
+                        <form class="comment__form" action="{{ route('comment.store',['id' =>$product->id]) }}" method="POST">
+                            @csrf
+                            <label class="form__label">商品へのコメント</label>
+                            <textarea name="content" ></textarea>
+                            @error('content')
+                                <p class="form__error">{{$message}}</p>
+                            @enderror
+
+                            <button class="product__button" type="submit">コメントを送信する</button>
+                        </form>       
+                    @endauth  
+                </div>         
             </div>
-    
-        </div>
     </main>
+</body>
+</html>
