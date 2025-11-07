@@ -14,7 +14,9 @@ class ProductController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $products = Product::where('user_id','!=',$user->id)->get();
+        $products = Product::when($user,function ($query) use ($user){
+            $query->where('user_id','!=',$user->id);
+        })->get();
         $tab = 'recommend';
        
         return view('index',compact('products','tab'));
@@ -50,7 +52,7 @@ class ProductController extends Controller
 
     public function show($id)
     {
-        $product = Product::with('categories')->findOrfail($id);
+        $product = Product::with('categories','comments.user.profile')->findOrfail($id);
         return view('item',compact('product'));
     }
 }

@@ -4,36 +4,40 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Favorite;
 use Illuminate\Support\Facades\Auth;
 
 class FavoriteController extends Controller
 {
-    public function store($productId)
+    public function store(Product $product)
     {
-        $user = Auth::user();
+        $user = auth()->user();
 
-        $user->favoriteProducts()->syncWithoutDetaching([$productId]);
-
-        if(!$user->favoriteProducts()->where('product_id',$productId)->exists()) {
-            $user->favoriteProducts()->attach($productId);
+        if (!$user->favoriteProducts()->where('product_id', $product->id)->exists()) {
+            $user->favoriteProducts()->attach($product->id);
         }
-        return back();
+
+    return back();
     }
 
-    public function destroy($productId)
+    public function destroy(Product $product)
     {
-        $user = Auth::user();
-        $user->favoriteProducts()->detach($productId);
+        $user = auth()->user();
 
-        return back();
+        if ($user->favoriteProducts()->where('product_id', $product->id)->exists()) {
+            $user->favoriteProducts()->detach($product->id);
+        }
+
+    return back();
     }
 
     public function index()
-{
-    $user = Auth()->user();
+    {
+        $user = auth()->user();
+        $products = $user->favoriteProducts()->get();
+        $tab = 'mylist';
 
-    $products = $user->favoriteProducts()->get();
-    $tab = 'mylist';
-    return view('index', compact('products','tab'));
-}
+        return view('index', compact('products', 'tab'));
+    }
+
 }

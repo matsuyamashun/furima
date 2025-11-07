@@ -59,10 +59,148 @@
 
 .puroduct__content{
     display: flex;
-    width: 90%;
     justify-content: center;
-    gap:50px;
+    align-items: flex-start;
+    gap:40px;
+    padding: 20px;
     margin: 40px auto;
+}
+
+.product__detail{
+    max-width: 50%;
+}
+
+.product__title{
+    margin: 30px 0;
+}
+
+.product__brand{
+    font-size: 13px;
+}
+
+.product__price{
+    font-size: 25px;
+}
+
+.favorite{
+    display: flex;
+    justify-content: flex-start;
+    margin: 10px 0;
+    gap:25px;
+}
+
+.favorite__button {
+    background: none;
+    border:none;
+    cursor: pointer;
+    font-size: 17px;
+}
+
+.comment__area{
+    font-size: 17px;
+}
+
+.favorite__count,
+.comment__count {
+    font-size: 17px;
+}
+
+
+.information__row{
+    display: flex;
+    gap: 20px;
+}
+
+.information__label{
+    font-weight: bold;
+    margin: 10px 30px 10px 0;
+}
+
+.information__category{
+    margin: 9px;
+    border: 1px solid #ddd;
+    background-color: #ddd;
+    border-radius: 30px;
+    padding:10px;
+}
+
+.information__condition{
+    margin: 9px;
+}
+
+.product__button{
+    display: block;
+    width: 100%;
+    text-align: center;
+    background-color: rgb(247, 86, 86);
+    padding: 10px 30px;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+    border-radius: 3px;
+    border: none;
+}
+
+.product__button:hover{
+    color: white;
+    background-color: red;
+}
+
+.product__information {
+    margin-top: 30px;
+    color: white;
+    border-radius: 1px solid #ddd;
+    background-color: rgb(247, 86, 86);
+}
+
+.product__comment section{
+    margin: 10px 0; 
+    color: #959393;
+    font-weight: bold;
+}
+
+.comment__avatar{
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+}
+
+.comment__user{
+    font-weight: bold;
+}
+
+.comment__text{
+    border: 1px solid #ddd;
+    background: #ddd;
+    padding: 10px;
+    border-radius: 3px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-y: auto;
+    max-width: 400px;
+    max-height: 120px;
+}
+
+.form__label{
+    font-weight: bold;
+    display: flex;
+}
+
+.comment__item{
+    display: flex;
+    gap: 15px;
+}
+
+
+.comment__form textarea{
+    width: 100%;
+    height: 150px;
+    margin:15px 0;
+    resize: none;
+}
+
+.form__error{
+    color:red; 
 }
 
 @media (max-width: 768px) {
@@ -100,6 +238,15 @@
     .header__link__sell {
         padding: 4px 10px;
         font-size: 10px;
+    }
+
+    .puroduct__content {
+        flex: 1;
+        margin: 80px auto;
+    }
+
+    .information__row{
+        flex-wrap: wrap;
     }
 
 }
