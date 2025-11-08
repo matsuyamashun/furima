@@ -8,7 +8,7 @@
   <title>furima</title>
   <link rel="stylesheet" href="{{ asset('css/sanitize.css') }}">
   <link rel="stylesheet" href="{{ asset('css/common.css') }}">
-   <link rel="stylesheet" href="{{ asset('css/purchase.css') }}">
+   <link rel="stylesheet" href="{{ asset('css/address.css') }}">
 </head>
 
 <body>
@@ -38,39 +38,38 @@
         </div>
     </header>
     <main>
-        <div class="product__content">
-            <div class="product__image">
-                    <img src="" width="400"
-                    height="400"alt="商品画像">
-                    <p class="product__name">{{ $product->name }}</p>
-                    <p>￥{{ $product->price }}</p>
-
-                    <div class="product__payment">
-                        <section class="product__title">支払い方法</section>
-                        <select name="" id="">
-                            <option value=""></option>
-                        </select>
-                    </div>
-
-                    <div class="product__address">
-                        <section class="product__title">配達先</section>
-                            <a href="{{ route('address.show')}}">変更する</a>
-                            <div class="product__postal">
-                                <p class="product__address">{{ $product->address}}</p>
-                                <p class="product__building">{{ $product->building}}</p>
-                            </div>
-                    </div>
-            </div>
-
-            <div class="product__table">
-
-            </div>
-
-            <form action="post">
-                @csrf
-                <button class="form__submit" type="submit">購入する</button>
-            </form>
+        <div class="content">
+            <h2 class="content__title">住所の変更</h2>
         </div>
+
+        <form class="content__form" action="{{ route('address.update')}}" method="POST" >
+            @csrf
+            @method('PATCH')
+
+            <div class="form__group">
+                <label>郵便番号</label>
+                <input class="form__postal__input"  type="text"name="postal_code" value="{{old('postal_code')}}">
+                @error('postal_code')
+                    <div class="form__error">{{$message}}</div>
+                @enderror
+            </div>
+
+            <div class="form__group">
+                <label>住所</label>
+                <input class="form__address__input"  type="text"name="address" value="{{old('address')}}">
+                @error('address')
+                    <div class="form__error">{{$message}}</div>
+                @enderror
+            </div>
+
+            <div class="form__group">
+                <label>建物名</label>
+                <input class="form__building__input"  type="text"name="building" value="{{old('building')}}">
+            </div>
+
+            <div class="form__group">
+                <button class="form__button">更新する</button>
+            </div>
+        </form>
     </main>
 </body>
-</html>

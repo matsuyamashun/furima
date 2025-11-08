@@ -14,6 +14,7 @@ class Product extends Model
         'image_url',
         'user_id',
         'price',
+        'is_sold',
         'condition',
         'brand',
         'description',
@@ -49,5 +50,10 @@ class Product extends Model
     public function categories()
     {
         return $this->belongsToMany(Category::class);
+    }
+
+    public function purchases()
+    {
+        return $this->hasMany(Purchase::class);
     }
 }

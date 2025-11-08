@@ -9,6 +9,7 @@ use App\Http\Controllers\MypageController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\CommentController; 
 use App\Http\Controllers\PurchaseController; 
+use App\Http\Controllers\AddressController; 
 
 Route::middleware('auth')->group(function () 
 {
@@ -30,7 +31,11 @@ Route::middleware('auth')->group(function ()
     Route::get('/sell',[ProductController::class,'sell'])->name('sell');
     Route::post('/sell',[ProductController::class,'store'])->name('sell.store');
 
-    Route::get('/purchase',[PurchaseController::class,'index'])->name('purchase');
+    Route::get('/purchase/{id}',[PurchaseController::class,'show'])->name('purchase');
+    Route::post('/purchase/{id}',[PurchaseController::class,'store'])->name('purchase.store');
+
+    Route::get('/address',[AddressController::class,'show'])->name('address.show');
+    Route::patch('/address',[AddressController::class,'update'])->name('address.update');
 });
 
 Route::get('/', [ProductController::class, 'index'])->name('index');
