@@ -10,7 +10,7 @@
 
 <form class="content__form" action="{{ route('register')}}" method="POST" novalidate>
     @csrf
-    <!-- ユーザー名 -->
+    
     <div class="form__group">
         <label>ユーザー名</label>
             <input class="form_name-input" type="text" name="name" value="{{ old('name')}}">
@@ -18,7 +18,7 @@
     @error('name')
         <div class="form__error">{{$message}}</div>
     @enderror
-    <!-- メールアドレス -->
+   
     <div class="form__group">
         <label>メールアドレス</label>
             <input class="form__mail__input" type="email" name="email" value="{{ old('email')}}">
@@ -26,7 +26,7 @@
     @error('email')
         <div class="form__error">{{$message}}</div>
     @enderror
-    <!-- パスワード -->
+    
     <div class="form__group">
         <label>パスワード</label>
             <input class="form__password-input" type="password" name="password">
@@ -34,7 +34,7 @@
     @error('password')
         <div class="form__error">{{$message}}</div>
     @enderror
-    <!-- 確認用パスワード -->
+    
     <div class="form__group">
         <label>確認用パスワード</label>
             <input class="form__password__confirmation-input" type="password" name="password_confirmation" >

@@ -34,8 +34,8 @@ Route::middleware('auth')->group(function ()
     Route::get('/purchase/{id}',[PurchaseController::class,'show'])->name('purchase');
     Route::post('/purchase/{id}',[PurchaseController::class,'store'])->name('purchase.store');
 
-    Route::get('/address',[AddressController::class,'show'])->name('address.show');
-    Route::patch('/address',[AddressController::class,'update'])->name('address.update');
+    Route::get('/address/{product_id}',[AddressController::class,'show'])->name('address.show');
+    Route::patch('/address/{product_id}',[AddressController::class,'update'])->name('address.update');
 });
 
 Route::get('/', [ProductController::class, 'index'])->name('index');

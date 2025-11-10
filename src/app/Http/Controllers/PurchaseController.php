@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\PurchaseRequest;
 use App\Models\Product;
+use App\Models\Purchase;
 use Illuminate\Support\Facades\Auth;
 
 class PurchaseController extends Controller
@@ -11,13 +13,22 @@ class PurchaseController extends Controller
     public function show($id)
     {
         $product = Product::findOrFail($id);
-
         $user = Auth::user();
+        $address = $user->address;
+        if (!$address) {
+        $profile = $user->profile;
+        $address = (object)[
+            'postal_code' => $profile->postal_code ?? '',
+            'address' => $profile->address ?? '',
+            'building' => $profile->building ?? '',
+        ];
+    }
+        $product_id = $product->id;
 
-        return view('purchase',compact('product','user'));
+        return view('purchase',compact('product','user','address','product_id'));
     }
 
-    public function store(Request $request,$id)
+    public function store(PurchaseRequest $request,$id)
     {
         $product = Product::findOrFail($id);
 
@@ -33,6 +44,6 @@ class PurchaseController extends Controller
 
         $product->update(['is_sold' => true]);
 
-        return redirect()->route('mypage');
+        return back()->withInput();
     } 
 }

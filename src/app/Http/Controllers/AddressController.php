@@ -9,14 +9,15 @@ use App\Http\Requests\AddressRequest;
 
 class AddressController extends Controller
 {
-    public function show()
+    public function show($id)
     {
         $address = Auth::user()->address;
+        $product_id = $id;
 
-        return view('address',compact('address'));
+        return view('address',compact('address','product_id'));
     }
 
-    public function update(AddressRequest $request)
+    public function update(AddressRequest $request,$product_id)
     {
         Address::updateOrCreate(
             ['user_id' => Auth::id()],
@@ -26,6 +27,6 @@ class AddressController extends Controller
         ]
     );
 
-        return redirect()->route('purchase');
+        return redirect()->route('purchase',['id' =>$product_id]);
     }
 }

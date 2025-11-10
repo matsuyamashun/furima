@@ -42,7 +42,7 @@
             <h2 class="content__title">住所の変更</h2>
         </div>
 
-        <form class="content__form" action="{{ route('address.update')}}" method="POST" >
+        <form class="content__form" action="{{ route('address.update',['product_id' => $product_id ])}}" method="POST" >
             @csrf
             @method('PATCH')
 
