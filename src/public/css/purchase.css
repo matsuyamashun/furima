@@ -70,7 +70,7 @@
 
 .product__name {
     font-weight: bold;
-    font-size: 30px;
+    font-size: 35px;
 }
 
 .product__price {
@@ -106,6 +106,36 @@
     width: 25%;
     height: 30px;
     margin-left: 30px;
+}
+
+.select,
+::picker(select) {
+    appearance: base-select;
+}
+
+option:ckecked::before {
+    content: "✓";
+}
+
+select {
+    padding: 5px;
+    border: 1px solid #c3c0c0;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+option {
+    background-color: #787878;
+    color: white;
+    cursor: pointer;
+}
+
+option:hover {
+    background-color: rgb(0, 102, 255);
+}
+
+option[value=""] {
+    display: none;
 }
 
 .product__change__delivary{

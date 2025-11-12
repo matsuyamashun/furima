@@ -58,7 +58,7 @@
                     @csrf
                     <div class="product__payment">
                         <section class="product__title">支払い方法</section>
-                        <select class="form__select" name="payment_method">
+                        <select class="form__select" name="payment_method" id="paymentSelect">
                             <option value="">選択してください</option>
                             <option value="コンビニ支払い" {{ old('payment_method') == 'コンビニ支払い' ? 'selected' : ''}}>コンビニ支払い</option>
                             <option value="カード支払い" {{ old('payment_method') == 'カード支払い' ? 'selected' : ''}}>カード支払い</option>
@@ -88,18 +88,29 @@
                     <table>
                         <tr>
                             <th>商品代金</th>
-                            <td>￥{{ $product->price}}</td>
+                            <td >￥{{ $product->price}}</td>
                         </tr>
                         <tr>
                             <th>支払い方法</th>
-                            <td>{{ old('payment_method') }}</td>
+                            <td id="selectPayment">選択してください{{ old('payment_method') }}</td>
                         </tr>
                     </table>
                 </div>
                 <button class="form__submit" type="submit">購入する</button>
             </div>
-            </form>
         </div>
+        </form>
     </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded',function(){
+            const select = document.getElementById('paymentSelect');
+            const display = document.getElementById('selectPayment');
+
+            select.addEventListener('change',function() {
+                display.textContent = this.value || '選択してください';
+            })
+        })
+    </script>
 </body>
 </html>

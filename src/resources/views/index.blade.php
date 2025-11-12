@@ -57,12 +57,12 @@
                         : asset('storage/' . $product->image_url)) 
                         : '' }}"  width="250"
                         height="250">
+
+                        @if($product->is_sold)
+                            <div class="sold-overlay">SOLD</div>
+                        @endif
                         <p>{{ $product->name }}</p>
                     </a>
-
-                @if($product->is_sold)
-                    <p class="product__sold">SOLD</p>
-                @endif
                 </div>
             @empty
                 <p>商品がありません</p>

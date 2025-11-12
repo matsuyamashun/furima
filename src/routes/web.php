@@ -21,7 +21,6 @@ Route::middleware('auth')->group(function ()
     Route::post('/logout', [AuthController::class,'logout'])->name('logout');
 
     Route::get('/mypage',[MypageController::class,'index'])->name('mypage');
-    Route::get('/purchased',[MypageController::class,'purchased'])->name('purchased');
 
     Route::post('/products/{product}/favorite', [FavoriteController::class, 'store'])->name('favorite.store');
     Route::delete('/products/{product}/favorite', [FavoriteController::class, 'destroy'])->name('favorite.destroy');

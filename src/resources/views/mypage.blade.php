@@ -54,10 +54,10 @@
         </div>
         
         <div class="menu">
-            <a href="{{ route('mypage')}}" class="menu__tab{{$tabMypage === 'listed' ? 'active' : ''}}">
+            <a href="{{ route('mypage',['tab' => 'buy'])}}" class="menu__tab{{ $tabMypage === 'buy' ? 'active' : ''}}">
                 <span>出品した商品</span>
             </a>
-            <a href="{{ route('purchased')}}" class="menu__tab{{$tabMypage === 'purchased' ? 'active' : ''}}">
+            <a href="{{ route('mypage',[ 'tab' => 'sell' ])}}" class="menu__tab{{ $tabMypage === 'sell' ? 'active' : ''}}">
                 購入した商品
             </a>
         </div>
@@ -72,8 +72,13 @@
                         : asset('storage/' . $product->image_url)) 
                         : '' }}"  alt="商品画像" width="250" 
                         height="250">
-                    </a>  
-                    <p>{{ $product->name }}</p>
+                        
+                        @if($product->is_sold)
+                            <div class="sold-overlay">SOLD</div>
+                        @endif  
+                        <p>{{ $product->name }}</p>
+                    </a>
+                    
                 </div>
             @empty
                 <p>商品がありません</p>

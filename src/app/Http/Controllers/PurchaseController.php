@@ -33,7 +33,7 @@ class PurchaseController extends Controller
         $product = Product::findOrFail($id);
 
         if($product->is_sold){
-            return back();
+            return back()->withInput();
         }
 
         Purchase::create([
@@ -44,6 +44,6 @@ class PurchaseController extends Controller
 
         $product->update(['is_sold' => true]);
 
-        return back()->withInput();
+        return redirect()->route('index');
     } 
 }

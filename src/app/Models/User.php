@@ -68,4 +68,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(Address::class);
     }
+
+    public function purchasedProducts()
+    {
+        return $this->belongsToMany(Product::class,'purchases', 'user_id', 'product_id');
+    }
 }
