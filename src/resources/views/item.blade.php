@@ -81,7 +81,7 @@
                     </div>
                 </div>
 
-                <a class="product__button" href="{{ route('purchase')}}">購入手続きへ</a>
+                <a class="product__button" href="{{ route('purchase',['id' => $product->id])}}">購入手続きへ</a>
                 @endauth
                 
                 <section class="product__description">

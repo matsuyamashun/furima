@@ -30,6 +30,7 @@ class ProductSeeder extends Seeder
             'description'=>'スタイリッシュなデザインのメンズ腕時計',
             'image_url'=>'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Armani+Mens+Clock.jpg',
             'condition'=>'良好',
+            
         ],
         [
             'name'=>'HDD',

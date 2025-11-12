@@ -23,10 +23,8 @@ class ProfileController extends Controller
     public function update(ProfileRequest $request)
     {
         $user = Auth::user();
-
         $user->name = $request->username;
         $user->save();
-
         $profile = $user->profile ?? new Profile(['user_id' => $user->id]);
 
         if ($request->hasFile('avatar')){

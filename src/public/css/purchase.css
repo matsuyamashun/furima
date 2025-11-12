@@ -57,6 +57,152 @@
     padding: 5px 10px;
 }
 
+.product__content {
+    width: 90%;
+    margin:40px auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.product{
+    width: 60%;
+}
+
+.product__name {
+    font-weight: bold;
+    font-size: 35px;
+}
+
+.product__price {
+    font-size: 23px;
+}
+
+.product__image{
+    display: flex;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    align-items: center;
+}
+
+.product__information{
+    margin-left: 30px;
+}
+
+.product__title {
+    font-weight: bold;
+    margin-bottom: 20px;
+    margin-left: 10px;
+}
+
+.product__payment {
+    border-bottom: 1px solid #454444;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+
+}
+
+.form__select {
+    width: 25%;
+    height: 30px;
+    margin-left: 30px;
+}
+
+.select,
+::picker(select) {
+    appearance: base-select;
+}
+
+option:ckecked::before {
+    content: "✓";
+}
+
+select {
+    padding: 5px;
+    border: 1px solid #c3c0c0;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+option {
+    background-color: #787878;
+    color: white;
+    cursor: pointer;
+}
+
+option:hover {
+    background-color: rgb(0, 102, 255);
+}
+
+option[value=""] {
+    display: none;
+}
+
+.product__change__delivary{
+    display: flex;
+    justify-content: space-between;
+}
+
+.product__change__delivary a {
+    text-decoration: none;
+    color: rgb(2, 141, 255);
+    cursor: pointer;  
+}
+
+.product__postal {
+    border-bottom: 1px solid #454444;
+}
+
+.product__postal p {
+    margin-left: 30px;
+}
+
+.product__address{
+    display: flex;
+    gap: 5px;
+}
+
+.product__datail {
+    width: 30%;
+    height: fit-content;
+    padding: 20px;
+}
+
+.product__table {
+    border: 1px solid #454444;
+    margin-bottom: 35px;
+}
+
+.product__table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.product__table th,
+.product__table td {
+    border-bottom: 2px solid #ddd;
+    padding: 15px;
+}
+
+.product__table td{
+    font-size: 24px;
+}
+
+.form__submit {
+    width: 100%;
+    background-color: rgb(247, 86, 86);
+    color: white;
+    border-radius: 3px;
+    border: none;
+    padding: 10px 0;
+    cursor: pointer;
+}
+
+.form__error {
+    color: red;
+    margin-top: 10px;
+}
+
 
 @media (max-width: 768px) {
 
@@ -93,5 +239,20 @@
     .header__link__sell {
         padding: 4px 10px;
         font-size: 10px;
+    }
+
+    .product__content {
+        margin: 80px auto;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .product {
+        width: 100%;
+    }
+
+    .product__datail {
+        width: 70%;
+        margin-top: 30px;
     }
 }

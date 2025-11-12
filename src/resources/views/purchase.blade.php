@@ -37,38 +37,80 @@
             </div>
         </div>
     </header>
+
     <main>
         <div class="product__content">
-            <div class="product__image">
-                    <img src="" width="400"
-                    height="400"alt="商品画像">
-                    <p class="product__name"></p>
-                    <p>￥</p>
+            <div class="product">
+                <div class="product__image">
+                    <img src="{{ $product->image_url 
+                    ? (Str::startsWith($product->image_url, 'http') 
+                    ? $product->image_url 
+                    : asset('storage/' . $product->image_url)) 
+                    : '' }}" width="150"
+                    height="150"alt="商品画像">
+                    <div class="product__information">
+                        <p class="product__name">{{ $product->name }}</p>
+                        <p class="product__price">￥{{ $product->price }}</p>
+                    </div>
+                </div>
 
+                <form action="{{ route('purchase.store',['id' => $product->id]) }}" method="POST">
+                    @csrf
                     <div class="product__payment">
                         <section class="product__title">支払い方法</section>
-                        <select name="" id="">
-                            <option value=""></option>
+                        <select class="form__select" name="payment_method" id="paymentSelect">
+                            <option value="">選択してください</option>
+                            <option value="コンビニ支払い" {{ old('payment_method') == 'コンビニ支払い' ? 'selected' : ''}}>コンビニ支払い</option>
+                            <option value="カード支払い" {{ old('payment_method') == 'カード支払い' ? 'selected' : ''}}>カード支払い</option>
                         </select>
+                        @error('payment_method')
+                            <div class="form__error">{{$message}}</div>
+                        @enderror
                     </div>
 
-                    <div class="product__address">
+                    <div class="product__delivary">
+                        <div class="product__change__delivary">
                         <section class="product__title">配達先</section>
-                            <a href=""></a>
-                            <div class="product__postal">
-                                <p class="product__building"></p>
+                            <a href="{{ route('address.show',['product_id' => $product->id ])}}">変更する</a>
+                        </div>
+                        <div class="product__postal">
+                            <p>〒{{ $address->postal_code}}</p>
+                            <div class="product__address">
+                                <p>{{ $address->address}}</p>
+                                <p>{{ $address->building ?? ''}}</p>
                             </div>
+                        </div>
                     </div>
             </div>
 
-            <div class="product__table">
-
-            </div>
-
-            <form action="#">
+            <div class="product__datail">
+                <div class="product__table">
+                    <table>
+                        <tr>
+                            <th>商品代金</th>
+                            <td >￥{{ $product->price}}</td>
+                        </tr>
+                        <tr>
+                            <th>支払い方法</th>
+                            <td id="selectPayment">選択してください{{ old('payment_method') }}</td>
+                        </tr>
+                    </table>
+                </div>
                 <button class="form__submit" type="submit">購入する</button>
-            </form>
+            </div>
         </div>
+        </form>
     </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded',function(){
+            const select = document.getElementById('paymentSelect');
+            const display = document.getElementById('selectPayment');
+
+            select.addEventListener('change',function() {
+                display.textContent = this.value || '選択してください';
+            })
+        })
+    </script>
 </body>
 </html>

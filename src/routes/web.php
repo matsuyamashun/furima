@@ -9,6 +9,7 @@ use App\Http\Controllers\MypageController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\CommentController; 
 use App\Http\Controllers\PurchaseController; 
+use App\Http\Controllers\AddressController; 
 
 Route::middleware('auth')->group(function () 
 {
@@ -20,7 +21,6 @@ Route::middleware('auth')->group(function ()
     Route::post('/logout', [AuthController::class,'logout'])->name('logout');
 
     Route::get('/mypage',[MypageController::class,'index'])->name('mypage');
-    Route::get('/purchased',[MypageController::class,'purchased'])->name('purchased');
 
     Route::post('/products/{product}/favorite', [FavoriteController::class, 'store'])->name('favorite.store');
     Route::delete('/products/{product}/favorite', [FavoriteController::class, 'destroy'])->name('favorite.destroy');
@@ -30,7 +30,11 @@ Route::middleware('auth')->group(function ()
     Route::get('/sell',[ProductController::class,'sell'])->name('sell');
     Route::post('/sell',[ProductController::class,'store'])->name('sell.store');
 
-    Route::get('/purchase',[PurchaseController::class,'index'])->name('purchase');
+    Route::get('/purchase/{id}',[PurchaseController::class,'show'])->name('purchase');
+    Route::post('/purchase/{id}',[PurchaseController::class,'store'])->name('purchase.store');
+
+    Route::get('/address/{product_id}',[AddressController::class,'show'])->name('address.show');
+    Route::patch('/address/{product_id}',[AddressController::class,'update'])->name('address.update');
 });
 
 Route::get('/', [ProductController::class, 'index'])->name('index');
