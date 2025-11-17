@@ -11,15 +11,28 @@ use App\Models\Category;
 
 class ProductController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
-        $products = Product::when($user,function ($query) use ($user){
+    
+        if($request->filled('search')) {
+           session(['search' => $request->search]);
+        }else {
+            session()->forget('search');
+        }
+
+        $search = session('search');
+
+        $products = Product::when($user,function($query) use ($user) {
             $query->where('user_id','!=',$user->id);
-        })->get();
+        })
+        ->when($search, function($query,$search) {
+             $query->where('name','like', "%{$search}%");
+        })
+        ->get();
         $tab = 'recommend';
        
-        return view('index',compact('products','tab'));
+        return view('index',compact('products','tab','search'));
     }
 
     public function store(ExhibitionRequest $request)

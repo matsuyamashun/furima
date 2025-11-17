@@ -31,13 +31,27 @@ class FavoriteController extends Controller
     return back();
     }
 
-    public function index()
+   public function index(Request $request)
     {
-        $user = auth()->user();
-        $products = $user->favoriteProducts()->get();
+        $user = Auth::user();
+
+        if ($request->filled('search')) {
+        session(['search' => $request->search]);
+        } elseif ($request->has('clear')) {
+        session()->forget('search');
+        }
+
+        $search = session('search');
+
+        $products = $user->favoriteProducts()
+            ->when($search, function ($query, $search) {
+                $query->where('name', 'like', "%{$search}%");
+            })
+        ->get();
+
         $tab = 'mylist';
 
-        return view('index', compact('products', 'tab'));
+        return view('index', compact('products', 'tab', 'search'));
     }
 
 }
