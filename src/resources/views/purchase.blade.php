@@ -18,8 +18,8 @@
                     <img src="{{ asset('images/logo.svg')}}" alt="logo" >   
                 </a>
 
-                <form action= method="GET" class="header__search__form">
-                    <input type="text" name="seach" placeholder="　　なにをお探しですか？" class="header__search-input">
+                <form action="{{ route('index')}}" method="GET" class="header__search__form">
+                    <input type="text" name="search" value="{{ request('search') }}" placeholder="　　なにをお探しですか？" class="header__search-input">
                 </form>
 
             <div class="header__nav">
@@ -60,8 +60,8 @@
                         <section class="product__title">支払い方法</section>
                         <select class="form__select" name="payment_method" id="paymentSelect">
                             <option value="">選択してください</option>
-                            <option value="コンビニ支払い" {{ old('payment_method') == 'コンビニ支払い' ? 'selected' : ''}}>コンビニ支払い</option>
-                            <option value="カード支払い" {{ old('payment_method') == 'カード支払い' ? 'selected' : ''}}>カード支払い</option>
+                            <option value="konbini" {{ old('payment_method') == 'konbini' ? 'selected' : ''}}>コンビニ支払い</option>
+                            <option value="card" {{ old('payment_method') == 'card' ? 'selected' : ''}}>カード支払い</option>
                         </select>
                         @error('payment_method')
                             <div class="form__error">{{$message}}</div>
@@ -92,7 +92,7 @@
                         </tr>
                         <tr>
                             <th>支払い方法</th>
-                            <td id="selectPayment">選択してください{{ old('payment_method') }}</td>
+                            <td id="selectPayment">選択してください{{ old('payment_method')}}</td>
                         </tr>
                     </table>
                 </div>
@@ -103,14 +103,20 @@
     </main>
 
     <script>
-        document.addEventListener('DOMContentLoaded',function(){
-            const select = document.getElementById('paymentSelect');
-            const display = document.getElementById('selectPayment');
+    document.addEventListener('DOMContentLoaded', function() {
+        const select = document.getElementById('paymentSelect');
+        const display = document.getElementById('selectPayment');
+        const paymentLabels = {
+            konbini: 'コンビニ支払い',
+            card: 'カード支払い'
+        };
 
-            select.addEventListener('change',function() {
-                display.textContent = this.value || '選択してください';
-            })
-        })
-    </script>
+        select.addEventListener('change', function() {
+            display.textContent = paymentLabels[this.value] || '選択してください';
+        });
+
+        display.textContent = paymentLabels[select.value] || '選択してください';
+    });
+</script>
 </body>
 </html>

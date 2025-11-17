@@ -104,11 +104,11 @@
 
 .form__select {
     width: 25%;
-    height: 30px;
+    height: 35px;
     margin-left: 30px;
 }
 
-.select,
+select,
 ::picker(select) {
     appearance: base-select;
 }

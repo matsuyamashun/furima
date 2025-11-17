@@ -7,6 +7,8 @@ use App\Http\Requests\PurchaseRequest;
 use App\Models\Product;
 use App\Models\Purchase;
 use Illuminate\Support\Facades\Auth;
+use Stripe\Stripe;
+use Stripe\Checkout\Session;
 
 class PurchaseController extends Controller
 {
@@ -15,35 +17,79 @@ class PurchaseController extends Controller
         $product = Product::findOrFail($id);
         $user = Auth::user();
         $address = $user->address;
+
         if (!$address) {
-        $profile = $user->profile;
-        $address = (object)[
-            'postal_code' => $profile->postal_code ?? '',
-            'address' => $profile->address ?? '',
-            'building' => $profile->building ?? '',
-        ];
-    }
-        $product_id = $product->id;
+            $profile = $user->profile;
+            $address = (object)[
+                'postal_code' => $profile->postal_code ?? '',
+                'address' => $profile->address ?? '',
+                'building' => $profile->building ?? '',
+            ];
+        }
 
-        return view('purchase',compact('product','user','address','product_id'));
+        return view('purchase', compact('product', 'user', 'address'));
     }
 
-    public function store(PurchaseRequest $request,$id)
+    public function store(PurchaseRequest $request, $id)
     {
         $product = Product::findOrFail($id);
 
-        if($product->is_sold){
+        if ($product->is_sold) {
             return back()->withInput();
         }
 
-        Purchase::create([
-            'user_id' => Auth::id(),
-            'product_id' => $product->id,
-            'payment_method' => $request->payment_method,
+        $payment = $request->payment_method;
+
+        if ($payment === 'konbini') {
+
+            Purchase::create([
+                'user_id' => Auth::id(),
+                'product_id' => $product->id,
+                'payment_method' => 'コンビニ支払い',
+            ]);
+
+            $product->update(['is_sold' => true]);
+
+            return redirect()->route('purchase.success', ['id' => $product->id]);
+        }
+
+        \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+
+        $session = \Stripe\Checkout\Session::create([
+            'payment_method_types' => ['card'],
+            'line_items' => [[
+                'price_data' => [
+                    'currency' => 'jpy',
+                    'product_data' => [
+                        'name' => $product->name,
+                    ],
+                    'unit_amount' => $product->price,
+                ],
+                'quantity' => 1,
+            ]],
+            'mode' => 'payment',
+            'success_url' => route('purchase.success', ['id' => $product->id]),
+            'cancel_url' => route('purchase', ['id' => $product->id]),
         ]);
 
-        $product->update(['is_sold' => true]);
+        return redirect($session->url);
+    }
 
-        return redirect()->route('index');
-    } 
+    public function success($id)
+    {
+        $product = Product::findOrFail($id);
+
+        if (!$product->is_sold) {
+
+            Purchase::create([
+                'user_id' => Auth::id(),
+                'product_id' => $product->id,
+                'payment_method' => 'カード支払い',
+            ]);
+
+            $product->update(['is_sold' => true]);
+        }
+
+        return redirect()->route('mypage');
+    }
 }
