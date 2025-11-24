@@ -9,6 +9,8 @@
 
 1.git clone  git@github.com:matsuyamashun/furima.git
 
+Http版はっておきます　　https://github.com/matsuyamashun/furima.git
+
 2.DockerDesktopアプリ立ち上げ
 
 3.docker-compose up -d --build
