@@ -221,6 +221,6 @@ erDiagram
 
  .  phpMyAdmin::http://localhost:8080/
 
- .　　カード支払いについてはhttps://zenn.dev/h_yokoyama/articles/html-select-style　
+ .　　カード支払いについては[https://zenn.dev/h_yokoyama/articles/html-select-style　](https://docs.stripe.com/testing#testing-interactively)
  　　　こちらを参考にしてください
 
