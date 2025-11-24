@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\User;
+use Illuminate\Support\Arr;
 
 class ProductSeeder extends Seeder
 {
@@ -107,9 +108,15 @@ class ProductSeeder extends Seeder
     ]; 
 
         foreach ($products as $product) {
-            Product::create(array_merge($product, [
-                'user_id' => $user->id,
-            ]));
-    }
+            $createdProduct = Product::create(array_merge($product, [
+            'user_id' => $user->id,
+        ]));
+
+        $categoryIds = Category::pluck('id')->toArray();
+        $createdProduct->categories()->attach(Arr::random($categoryIds, rand(1, 3)));
+        }
+
+
     }
 }
+

@@ -12,6 +12,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PurchaseController; 
 use App\Http\Controllers\AddressController; 
 
+
 Route::middleware('auth','verified')->group(function () 
 {
     Route::get('/mylist', [FavoriteController::class, 'index'])->name('favorite.index');
@@ -51,13 +52,12 @@ Route::get('/item/{id}',[ProductController::class,'show'])->name('item');
 
 Route::post('/register', [CustomRegisterController::class, 'store'])->name('register.store');
 
+
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill(); 
 
     return redirect('/profile');
 })->middleware(['auth', 'signed'])->name('verification.verify');
-
-
 
 
 

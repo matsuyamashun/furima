@@ -28,10 +28,10 @@ class FavoriteController extends Controller
             $user->favoriteProducts()->detach($product->id);
         }
 
-    return back();
+        return back();
     }
 
-   public function index(Request $request)
+    public function index(Request $request)
     {
         $user = Auth::user();
 
@@ -47,7 +47,7 @@ class FavoriteController extends Controller
             ->when($search, function ($query, $search) {
                 $query->where('name', 'like', "%{$search}%");
             })
-        ->get();
+            ->get();
 
         $tab = 'mylist';
 
