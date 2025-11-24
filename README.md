@@ -51,6 +51,17 @@ php artisan migrate
 
 php artisan db:seed
 
+<h2>ログイン情報</h2>
+
+**管理者ユーザー**
+- メールアドレス: admin@example.com
+- パスワード: password123
+
+**一般ユーザー**
+- メールアドレス: user@example.com
+- パスワード: password123
+
+
 <h2>使用技術（実行環境）</h2>
 
 ・PHP8.4.12
@@ -206,4 +217,9 @@ erDiagram
 
  ・  開発環境::http://localhost
 
- ・phpMyAdmin::http://localhost:8080/
+ .　メール認証::http://localhost:8025/
+
+ .  phpMyAdmin::http://localhost:8080/
+
+ .　　カード支払いについてはhttps://zenn.dev/h_yokoyama/articles/html-select-style　こちらを参考にしてください
+
