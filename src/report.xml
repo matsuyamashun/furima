@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="" tests="18" assertions="51" errors="0" warnings="0" failures="1" skipped="0" time="6.277553">
+    <testsuite name="Unit" tests="1" assertions="1" errors="0" warnings="0" failures="0" skipped="0" time="0.002863">
+      <testsuite name="Tests\Unit\ExampleTest" file="/var/www/tests/Unit/ExampleTest.php" tests="1" assertions="1" errors="0" warnings="0" failures="0" skipped="0" time="0.002863">
+        <testcase name="test_example" class="Tests\Unit\ExampleTest" classname="Tests.Unit.ExampleTest" file="/var/www/tests/Unit/ExampleTest.php" line="14" assertions="1" time="0.002863"/>
+      </testsuite>
+    </testsuite>
+    <testsuite name="Feature" tests="17" assertions="50" errors="0" warnings="0" failures="1" skipped="0" time="6.274690">
+      <testsuite name="Tests\Feature\AddressTest" file="/var/www/tests/Feature/AddressTest.php" tests="1" assertions="2" errors="0" warnings="0" failures="0" skipped="0" time="0.315338">
+        <testcase name="test_購入した商品に送付先住所が紐づいて保存される" class="Tests\Feature\AddressTest" classname="Tests.Feature.AddressTest" file="/var/www/tests/Feature/AddressTest.php" line="17" assertions="2" time="0.315338"/>
+      </testsuite>
+      <testsuite name="Tests\Feature\CommentTest" file="/var/www/tests/Feature/CommentTest.php" tests="1" assertions="3" errors="0" warnings="0" failures="0" skipped="0" time="0.069458">
+        <testcase name="test_コメントが255字以上の時バリデーションエラーになる" class="Tests\Feature\CommentTest" classname="Tests.Feature.CommentTest" file="/var/www/tests/Feature/CommentTest.php" line="19" assertions="3" time="0.069458"/>
+      </testsuite>
+      <testsuite name="Tests\Feature\EmailTest" file="/var/www/tests/Feature/EmailTest.php" tests="1" assertions="3" errors="0" warnings="0" failures="0" skipped="0" time="3.868477">
+        <testcase name="test_メール認証を完了するとプロフィール設定画面に遷移する" class="Tests\Feature\EmailTest" classname="Tests.Feature.EmailTest" file="/var/www/tests/Feature/EmailTest.php" line="14" assertions="3" time="3.868477"/>
+      </testsuite>
+      <testsuite name="Tests\Feature\ExampleTest" file="/var/www/tests/Feature/ExampleTest.php" tests="1" assertions="1" errors="0" warnings="0" failures="0" skipped="0" time="0.035815">
+        <testcase name="test_example" class="Tests\Feature\ExampleTest" classname="Tests.Feature.ExampleTest" file="/var/www/tests/Feature/ExampleTest.php" line="15" assertions="1" time="0.035815"/>
+      </testsuite>
+      <testsuite name="Tests\Feature\FavoriteTest" file="/var/www/tests/Feature/FavoriteTest.php" tests="1" assertions="1" errors="0" warnings="0" failures="0" skipped="0" time="0.156272">
+        <testcase name="test_いいね解除できる" class="Tests\Feature\FavoriteTest" classname="Tests.Feature.FavoriteTest" file="/var/www/tests/Feature/FavoriteTest.php" line="19" assertions="1" time="0.156272"/>
+      </testsuite>
+      <testsuite name="Tests\Feature\ItemTest" file="/var/www/tests/Feature/ItemTest.php" tests="1" assertions="3" errors="0" warnings="0" failures="0" skipped="0" time="0.196805">
+        <testcase name="test_商品詳細ページに複数カテゴリが表示される" class="Tests\Feature\ItemTest" classname="Tests.Feature.ItemTest" file="/var/www/tests/Feature/ItemTest.php" line="21" assertions="3" time="0.196805"/>
+      </testsuite>
+      <testsuite name="Tests\Feature\LoginTest" file="/var/www/tests/Feature/LoginTest.php" tests="1" assertions="5" errors="0" warnings="0" failures="0" skipped="0" time="0.150467">
+        <testcase name="test_正しい情報でログインできてトップページに遷移する" class="Tests\Feature\LoginTest" classname="Tests.Feature.LoginTest" file="/var/www/tests/Feature/LoginTest.php" line="17" assertions="5" time="0.150467"/>
+      </testsuite>
+      <testsuite name="Tests\Feature\LogoutTest" file="/var/www/tests/Feature/LogoutTest.php" tests="1" assertions="3" errors="0" warnings="0" failures="0" skipped="0" time="0.086320">
+        <testcase name="test_ログイン中にログアウトしたらログインにリダイレクトされる" class="Tests\Feature\LogoutTest" classname="Tests.Feature.LogoutTest" file="/var/www/tests/Feature/LogoutTest.php" line="17" assertions="3" time="0.086320"/>
+      </testsuite>
+      <testsuite name="Tests\Feature\MylistTest" file="/var/www/tests/Feature/MylistTest.php" tests="1" assertions="2" errors="0" warnings="0" failures="0" skipped="0" time="0.033268">
+        <testcase name="test_未認証の場合はマイリストは表示されずログインへリダイレクトされる" class="Tests\Feature\MylistTest" classname="Tests.Feature.MylistTest" file="/var/www/tests/Feature/MylistTest.php" line="20" assertions="2" time="0.033268"/>
+      </testsuite>
+      <testsuite name="Tests\Feature\MypageTest" file="/var/www/tests/Feature/MypageTest.php" tests="2" assertions="6" errors="0" warnings="0" failures="0" skipped="0" time="0.247733">
+        <testcase name="test_マイページで出品商品が表示される" class="Tests\Feature\MypageTest" classname="Tests.Feature.MypageTest" file="/var/www/tests/Feature/MypageTest.php" line="11" assertions="3" time="0.102777"/>
+        <testcase name="test_マイページで購入商品が表示される" class="Tests\Feature\MypageTest" classname="Tests.Feature.MypageTest" file="/var/www/tests/Feature/MypageTest.php" line="35" assertions="3" time="0.144956"/>
+      </testsuite>
+      <testsuite name="Tests\Feature\ProfileTest" file="/var/www/tests/Feature/ProfileTest.php" tests="1" assertions="5" errors="0" warnings="0" failures="0" skipped="0" time="0.093780">
+        <testcase name="test_プロフィール編集ページに初期値が表示される" class="Tests\Feature\ProfileTest" classname="Tests.Feature.ProfileTest" file="/var/www/tests/Feature/ProfileTest.php" line="13" assertions="5" time="0.093780"/>
+      </testsuite>
+      <testsuite name="Tests\Feature\PurchaseInformationTest" file="/var/www/tests/Feature/PurchaseInformationTest.php" tests="1" assertions="3" errors="0" warnings="0" failures="1" skipped="0" time="0.322948">
+        <testcase name="test_商品出品情報が保存される" class="Tests\Feature\PurchaseInformationTest" classname="Tests.Feature.PurchaseInformationTest" file="/var/www/tests/Feature/PurchaseInformationTest.php" line="15" assertions="3" time="0.322948">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Tests\Feature\PurchaseInformationTest::test_商品出品情報が保存される
+Failed asserting that a row in the table [category_product] matches the attributes {
+      "product_id": 2,
+      "category_id": 3
+  }.
+  
+  Found similar results: [
+      {
+          "id": 1,
+          "product_id": 2,
+          "category_id": 1,
+          "created_at": null,
+          "updated_at": null
+      },
+      {
+          "id": 2,
+          "product_id": 2,
+          "category_id": 2,
+          "created_at": null,
+          "updated_at": null
+      }
+  ].
+
+/var/www/vendor/laravel/framework/src/Illuminate/Foundation/Testing/Concerns/InteractsWithDatabase.php:29
+/var/www/tests/Feature/PurchaseInformationTest.php:50</failure>
+        </testcase>
+      </testsuite>
+      <testsuite name="Tests\Feature\PurchaseTest" file="/var/www/tests/Feature/PurchaseTest.php" tests="1" assertions="4" errors="0" warnings="0" failures="0" skipped="0" time="0.101566">
+        <testcase name="test_支払い方法選択が小計画面に反映される" class="Tests\Feature\PurchaseTest" classname="Tests.Feature.PurchaseTest" file="/var/www/tests/Feature/PurchaseTest.php" line="19" assertions="4" time="0.101566"/>
+      </testsuite>
+      <testsuite name="Tests\Feature\RegisterTest" file="/var/www/tests/Feature/RegisterTest.php" tests="1" assertions="3" errors="0" warnings="0" failures="0" skipped="0" time="0.435908">
+        <testcase name="test_全て正しく入力すれば登録されプロフィール設定画面に遷移する" class="Tests\Feature\RegisterTest" classname="Tests.Feature.RegisterTest" file="/var/www/tests/Feature/RegisterTest.php" line="13" assertions="3" time="0.435908"/>
+      </testsuite>
+      <testsuite name="Tests\Feature\SearchTest" file="/var/www/tests/Feature/SearchTest.php" tests="1" assertions="3" errors="0" warnings="0" failures="0" skipped="0" time="0.106934">
+        <testcase name="test_検索状態がマイリストでも保持される" class="Tests\Feature\SearchTest" classname="Tests.Feature.SearchTest" file="/var/www/tests/Feature/SearchTest.php" line="14" assertions="3" time="0.106934"/>
+      </testsuite>
+      <testsuite name="Tests\Feature\indexTest" file="/var/www/tests/Feature/indexTest.php" tests="1" assertions="3" errors="0" warnings="0" failures="0" skipped="0" time="0.053601">
+        <testcase name="test_自分が出品した商品は一覧に表示されない" class="Tests\Feature\indexTest" classname="Tests.Feature.indexTest" file="/var/www/tests/Feature/indexTest.php" line="18" assertions="3" time="0.053601"/>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

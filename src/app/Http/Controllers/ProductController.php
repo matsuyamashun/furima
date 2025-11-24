@@ -17,7 +17,7 @@ class ProductController extends Controller
     
         if($request->filled('search')) {
            session(['search' => $request->search]);
-        }else {
+        } else {
             session()->forget('search');
         }
 
@@ -54,7 +54,7 @@ class ProductController extends Controller
             $product->categories()->sync($request->categories);
         
 
-        return redirect()->route('index');
+        return redirect()->route('mypage');
     }
 
     public function sell()

@@ -8,12 +8,12 @@
         <div class="content">
             <p>登録していただいたメールアドレスに認証メールを送付しました。</p>
             <p>メール認証を完了させてください。</p>
-            <form  method="GET">
-                <button class="form__button" type="submit">認証はこちらから</button>
-            </form>
-            <form action="{{ route('verification.send')}}" method="POST">
-                @csrf
-                <button class="form__resend" type="submit">認証メールを再送する</button>
+                <a href="http://localhost:8025" class="form__button">
+                認証はこちらから
+                </a>
+                <form action="{{ route('verification.send')}}" method="POST">
+                    @csrf
+                    <button class="form__resend" type="submit">認証メールを再送する</button>
             </form>
         </div>
     </div>
