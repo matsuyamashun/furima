@@ -26,17 +26,29 @@ services:
     command:
       mysqld --default-authentication-plugin=mysql_native_password
     volumes:
-      - ./docker/mysql/data:/var/lib/mysql
+      - db_data:/var/lib/mysql
       - ./docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     environment:
-      - PMA_ARBITRARY=1
-      - PMA_HOST=mysql
-      - PMA_USER=laravel_user
-      - PMA_PASSWORD=laravel_pass
+      PMA_ARBITRARY: 1
+      PMA_HOST: mysql
+      PMA_USER: laravel_user
+      PMA_PASSWORD: laravel_pass
     depends_on:
       - mysql
     ports:
-      - 8080:80
+      - "8080:80"
+
+  mailhog:
+    image: mailhog/mailhog
+    container_name: mailhog
+    ports:
+      - "8025:8025"
+      - "1025:1025"
+
+volumes:
+  db_data:
+
+
