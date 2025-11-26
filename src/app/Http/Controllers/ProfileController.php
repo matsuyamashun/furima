@@ -13,19 +13,18 @@ use App\Http\Requests\ProfileRequest;
 class ProfileController extends Controller
 {
         public function edit()
-    {
+
+       {
         $user = Auth::user();
         $profile = $user->profile; 
-        return view('profile', compact('profile'));
+        return view('profile', compact('user','profile'));
     }
 
     public function update(ProfileRequest $request)
     {
         $user = Auth::user();
-
         $user->name = $request->username;
         $user->save();
-
         $profile = $user->profile ?? new Profile(['user_id' => $user->id]);
 
         if ($request->hasFile('avatar')){
@@ -38,7 +37,8 @@ class ProfileController extends Controller
 
             $profile->avatar = $path;
         }
-
+        
+        $profile->user_id = $user->id;
         $profile->postal_code = $request->postal_code;
         $profile->username = $request->username;
         $profile->address = $request->address;
@@ -46,6 +46,6 @@ class ProfileController extends Controller
 
         $profile->save();
 
-        return redirect()->route('index')->with('success','プロフィールを更新しました');
+        return redirect()->route('index');
     }
 }

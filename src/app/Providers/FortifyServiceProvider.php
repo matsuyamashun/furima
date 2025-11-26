@@ -14,6 +14,8 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Laravel\Fortify\Fortify;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
+use Laravel\Fortify\Contracts\VerifyEmailViewResponse;
+use App\Http\Responses\VerifyEmailViewResponse as CustomVerifyEmailViewResponse;
 
 
 class FortifyServiceProvider extends ServiceProvider
@@ -23,8 +25,7 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-          $this->app->singleton(CreatesNewUsers::class, CreateNewUser::class);
-
+        //
     }
 
     /**
@@ -35,6 +36,9 @@ class FortifyServiceProvider extends ServiceProvider
 
         Fortify::registerView(fn() => view('auth.register'));
         Fortify::loginView(fn() => view('auth.login'));
+        Fortify::verifyEmailView(function(){
+            return view('auth.verify.email');
+        });
 
         Fortify::createUsersUsing(CreateNewUser::class);
 

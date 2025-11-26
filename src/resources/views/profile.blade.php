@@ -14,12 +14,12 @@
 <body>
     <header class="header">
         <div class="header__inner">
-                <a class="header__logo"> 
-                    <img src="{{ asset('images/logo.svg')}}" alt="logo">   
+                <a class="header__logo"href="/"> 
+                    <img src="{{ asset('images/logo.svg')}}" alt="logo" >   
                 </a>
 
-                <form action= method="GET" class="header__search__form">
-                    <input type="text" name="seach" placeholder="　　なにをお探しですか？" class="header__search-input">
+                <form action="{{ route('index')}}" method="GET" class="header__search__form">
+                    <input type="text" name="search" value="{{ request('search') }}" placeholder="　　なにをお探しですか？" class="header__search-input">
                 </form>
 
             <div class="header__nav">

@@ -138,6 +138,10 @@
     margin: 15px 0;
 }
 
+.category__tag input[type="checkbox"] {
+    display: none;
+}
+
 .tag {
     color:rgb(247, 86, 86);
     margin:3px;
@@ -146,23 +150,41 @@
     padding: 3px 8px;
     font-size: 10px;
     cursor: pointer;
-    user-select: none;
 }
 
-.category__tag input[type="radio"]:checked + .tag{
+.category__tag input[type="checkbox"]:checked + .tag{
     color:white;
     background-color: red;
+}
+
+select,
+::picker(select) {
+    appearance: base-select;
 }
 
 select{
     padding: 5px;
     border: 1px solid #c3c0c0;
     border-radius: 3px;
+    cursor: pointer;
 }
 
-select:hover {
-    background: rgb(104, 104, 105);
-    color:white;
+option {
+    background-color: #787878;
+    color: white;
+    cursor: pointer;
+}
+
+option:hover {
+    background-color: rgb(0, 102, 255);
+}
+
+option[value=""] {
+    display: none;
+}
+
+option:ckecked::before {
+    content: "✓";
 }
 
 .form__group input {

@@ -18,8 +18,8 @@
                     <img src="{{ asset('images/logo.svg')}}" alt="logo">   
                 </a>
 
-                <form action= method="GET" class="header__search__form">
-                    <input type="text" name="seach" placeholder="　　なにをお探しですか？" class="header__search-input">
+                <form action="{{ route('index')}}" method="GET" class="header__search__form">
+                    <input type="text" name="search" value="{{ $search ?? '' }}" placeholder="　　なにをお探しですか？" class="header__search-input">
                 </form>
 
             <div class="header__nav">
@@ -39,10 +39,10 @@
     </header>
     <main class="main">
         <div class="menu">
-            <a href="{{ route('index')}}" class="menu__tab{{$tab === 'recommend' ? 'active' : ''}}">
+            <a href="{{ route('index')}}" class="menu__tab{{($tab ?? '') === 'recommend' ? 'active' : ''}}">
                 おすすめ
             </a>
-            <a href="{{ route('mylist')}}" class="menu__tab{{ $tab === 'recommend' ? 'active' : ''}}">
+            <a href="{{ route('favorite.index')}}" class="menu__tab{{ ($tab ?? '') === 'mylist' ? 'active' : ''}}">
                 <span>マイリスト</span>
             </a>
         </div>
@@ -50,17 +50,19 @@
         <div class="product__list">
             @forelse($products as $product)
                 <div class="product__card">
-                    <img src="{{ $product->image_url 
-                    ? (Str::startsWith($product->image_url, 'http') 
-                    ? $product->image_url 
-                    : asset('storage/' . $product->image_url)) 
-                    : '' }}"  width="250"
-                    height="250">
-                <p>{{ $product->name }}</p>
+                    <a href="{{ route('item',$product->id) }}">
+                        <img src="{{ $product->image_url 
+                        ? (Str::startsWith($product->image_url, 'http') 
+                        ? $product->image_url 
+                        : asset('storage/' . $product->image_url)) 
+                        : '' }}"  width="250"
+                        height="250">
 
-                @if($product->is_sold)
-                    <p class="product__sold">SOLD</p>
-                @endif
+                        @if($product->is_sold)
+                            <div class="sold-overlay">SOLD</div>
+                        @endif
+                        <p>{{ $product->name }}</p>
+                    </a>
                 </div>
             @empty
                 <p>商品がありません</p>
