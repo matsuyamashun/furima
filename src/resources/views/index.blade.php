@@ -14,8 +14,8 @@
 <body>
     <header class="header">
         <div class="header__inner">
-                <a class="header__logo"> 
-                    <img src="{{ asset('images/logo.svg')}}" alt="logo">   
+                <a class="header__logo">
+                    <img src="{{ asset('images/logo.svg')}}" alt="logo">
                 </a>
 
                 <form action="{{ route('index')}}" method="GET" class="header__search__form">
@@ -51,12 +51,7 @@
             @forelse($products as $product)
                 <div class="product__card">
                     <a href="{{ route('item',$product->id) }}">
-                        <img src="{{ $product->image_url 
-                        ? (Str::startsWith($product->image_url, 'http') 
-                        ? $product->image_url 
-                        : asset('storage/' . $product->image_url)) 
-                        : '' }}"  width="250"
-                        height="250">
+                        <img src="{{ $product->image_url ? (Str::startsWith($product->image_url, 'http') ? $product->image_url : asset('storage/' . $product->image_url)) : '' }}"  width="250"height="250">
 
                         @if($product->is_sold)
                             <div class="sold-overlay">SOLD</div>

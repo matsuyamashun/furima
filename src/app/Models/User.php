@@ -49,8 +49,6 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-    
-
      public function favoriteProducts()
     {
         return $this->belongsToMany(Product::class,'favorites', 'user_id', 'product_id')->withTimestamps();
@@ -65,7 +63,7 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Purchase::class);
     }
-    
+
     public function address()
     {
         return $this->hasOne(Address::class);

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
-use App\Models\Favorite;
 use Illuminate\Support\Facades\Auth;
 
 class FavoriteController extends Controller
@@ -53,5 +52,4 @@ class FavoriteController extends Controller
 
         return view('index', compact('products', 'tab', 'search'));
     }
-
 }

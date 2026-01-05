@@ -15,8 +15,8 @@
     <header class="header">
         <div class="header__inner">
             <div class="header-utilities">
-                <a class="header__logo" href="/register"> 
-                    <img src="{{ asset('images/logo.svg')}}" alt="logo">   
+                <a class="header__logo" href="/register">
+                    <img src="{{ asset('images/logo.svg')}}" alt="logo">
                 </a>
             </div>
         </div>

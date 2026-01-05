@@ -14,7 +14,7 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
-    
+
         if($request->filled('search')) {
            session(['search' => $request->search]);
         } else {

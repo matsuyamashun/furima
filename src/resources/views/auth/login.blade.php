@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/login.css') }}" />
-@endsection 
+@endsection
 
 @section('content')
 <div class="content">
@@ -10,7 +10,7 @@
 
 <form class="content__form" action="{{ route('login')}}" method="POST" novalidate>
     @csrf
-   
+
     <div class="form__group">
         <label>メールアドレス</label>
             <input class="form__mail__input" type="email" name="email">
@@ -18,7 +18,7 @@
     @error('email')
         <div class="form__error">{{$message}}</div>
     @enderror
-   
+
     <div class="form__group">
         <label>パスワード</label>
             <input class="form__password-input" type="password" name="password">
@@ -31,7 +31,7 @@
         <p class="form__link">
             <a href="/register">会員登録はこちら</a>
         </p>
-    </div>  
+    </div>
    @if($errors->has('email') && $errors->first('email') === 'ログイン情報が登録されていません')
         <div class="form__error">{{ $errors->first('email') }}</div>
     @endif

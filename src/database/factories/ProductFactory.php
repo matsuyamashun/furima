@@ -27,7 +27,7 @@ class ProductFactory extends Factory
                 'やや傷や汚れあり',
                 '状態が悪い',
             ]),
-            'user_id' => User::factory(), 
+            'user_id' => User::factory(),
             'image_url' => 'https://placehold.co/250x250?text=' . urlencode($this->faker->word),
             'is_sold' => false,
 

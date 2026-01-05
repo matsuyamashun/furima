@@ -14,8 +14,8 @@
 <body>
     <header class="header">
         <div class="header__inner">
-                <a class="header__logo" href="/"> 
-                    <img src="{{ asset('images/logo.svg')}}" alt="logo">   
+                <a class="header__logo" href="/">
+                    <img src="{{ asset('images/logo.svg')}}" alt="logo">
                 </a>
 
                 <form action="{{ route('index')}}" method="GET" class="header__search__form">
@@ -41,19 +41,14 @@
     <main>
         <div class="puroduct__content">
             <div class="product__image">
-                <img src="{{ $product->image_url 
-                    ? (Str::startsWith($product->image_url, 'http') 
-                    ? $product->image_url 
-                    : asset('storage/' . $product->image_url)) 
-                    : '' }}"  width="400"
-                    height="400"alt="商品画像" >
+                <img src="{{ $product->image_url ? (Str::startsWith($product->image_url, 'http') ? $product->image_url : asset('storage/' . $product->image_url)) : '' }}"  width="400" height="400" alt="商品画像" >
             </div>
 
             <div class="product__detail">
                 <h1 class="product__title">{{$product->name}}</h1>
                 <p class="product__brand">{{$product->brand ?? 'ブランドなし'}}</p>
                 <p class="product__price">￥{{$product->price}}(税込)</p>
-                
+
                 @auth
                 <div class="favorite">
                     <div class="fvorite__area">
@@ -74,7 +69,7 @@
                         <p class="favorite__count">
                             {{ $product->favorites()->count() }}</p>
                     </div>
- 
+
                     <div class="comment__area">
                         💬
                         <p class="comment__icon">{{ $product->comments->count() }}</p>
@@ -83,7 +78,7 @@
 
                 <a class="product__button" href="{{ route('purchase',['id' => $product->id])}}">購入手続きへ</a>
                 @endauth
-                
+
                 <section class="product__description">
                     <h2 class="product__title">商品説明</h2>
                     <p>{{$product->description}}</p>
@@ -100,7 +95,7 @@
                             @endforeach
                         </span>
                     </div>
-                    
+
                     <div class="information__row">
                         <span class="information__label">商品の状態</span>
                         <span
@@ -109,7 +104,7 @@
                         </span>
                     </div>
                 </section>
-            
+
                 <div class="product__comment">
                     <section class="product__comment">
                         コメント（{{ $product->comments->count() }}）
@@ -117,12 +112,7 @@
 
                     @foreach($product->comments as $comment)
                         <div class="comment__item">
-                            <img 
-                            src="{{ $comment->user->profile && $comment->user->profile->avatar 
-                            ? asset('storage/' . $comment->user->profile->avatar) 
-                            : asset('images/default.png') }}" 
-                            alt="ユーザー画像" 
-                            class="comment__avatar">
+                            <img src="{{ $comment->user->profile && $comment->user->profile->avatar ? asset('storage/' . $comment->user->profile->avatar) : asset('images/default.png') }}" alt="ユーザー画像" class="comment__avatar">
 
                             <p class="comment__user">{{ $comment->user->name}}</p>
                         </div>
@@ -140,9 +130,9 @@
                             @enderror
 
                             <button class="product__button" type="submit">コメントを送信する</button>
-                        </form>       
-                    @endauth  
-                </div>         
+                        </form>
+                    @endauth
+                </div>
             </div>
     </main>
 </body>

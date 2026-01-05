@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Profile;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
@@ -16,7 +15,7 @@ class ProfileController extends Controller
 
        {
         $user = Auth::user();
-        $profile = $user->profile; 
+        $profile = $user->profile;
         return view('profile', compact('user','profile'));
     }
 
@@ -37,7 +36,7 @@ class ProfileController extends Controller
 
             $profile->avatar = $path;
         }
-        
+
         $profile->user_id = $user->id;
         $profile->postal_code = $request->postal_code;
         $profile->username = $request->username;

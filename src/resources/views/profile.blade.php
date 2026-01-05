@@ -14,8 +14,8 @@
 <body>
     <header class="header">
         <div class="header__inner">
-                <a class="header__logo"href="/"> 
-                    <img src="{{ asset('images/logo.svg')}}" alt="logo" >   
+                <a class="header__logo"href="/">
+                    <img src="{{ asset('images/logo.svg')}}" alt="logo" >
                 </a>
 
                 <form action="{{ route('index')}}" method="GET" class="header__search__form">
@@ -46,9 +46,7 @@
             @csrf
             @method('PATCH')
             <div class="profile-avatar">
-                <img 
-                 src="{{ $profile && $profile->avatar ? asset('storage/'.$profile->avatar) : 'https://via.placeholder.com/150' }}"
-                alt="画像" class="profile-img">
+                <img src="{{ $profile && $profile->avatar ? asset('storage/'.$profile->avatar) : 'https://via.placeholder.com/150' }}" alt="画像" class="profile-img">
                     <label class="btn-upload">
                         画像を選択する
                     <input type="file" name="avatar" hidden>

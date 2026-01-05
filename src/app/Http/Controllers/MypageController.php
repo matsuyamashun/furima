@@ -11,7 +11,7 @@ class MypageController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
-        $tabMypage = $request->query('tab', 'buy'); 
+        $tabMypage = $request->query('tab', 'buy');
 
         if ($tabMypage === 'sell') {
             $myproducts = $user->purchasedProducts;

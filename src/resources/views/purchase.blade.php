@@ -14,8 +14,8 @@
 <body>
     <header class="header">
         <div class="header__inner">
-                <a class="header__logo"href="/"> 
-                    <img src="{{ asset('images/logo.svg')}}" alt="logo" >   
+                <a class="header__logo"href="/">
+                    <img src="{{ asset('images/logo.svg')}}" alt="logo" >
                 </a>
 
                 <form action="{{ route('index')}}" method="GET" class="header__search__form">
@@ -42,12 +42,7 @@
         <div class="product__content">
             <div class="product">
                 <div class="product__image">
-                    <img src="{{ $product->image_url 
-                    ? (Str::startsWith($product->image_url, 'http') 
-                    ? $product->image_url 
-                    : asset('storage/' . $product->image_url)) 
-                    : '' }}" width="150"
-                    height="150"alt="商品画像">
+                    <img src="{{ $product->image_url ? (Str::startsWith($product->image_url, 'http') ? $product->image_url : asset('storage/' . $product->image_url)) : '' }}" width="150" height="150"alt="商品画像">
                     <div class="product__information">
                         <p class="product__name">{{ $product->name }}</p>
                         <p class="product__price">￥{{ $product->price }}</p>
