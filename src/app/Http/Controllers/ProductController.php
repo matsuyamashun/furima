@@ -31,7 +31,7 @@ class ProductController extends Controller
         })
         ->get();
         $tab = 'recommend';
-       
+
         return view('index',compact('products','tab','search'));
     }
 
@@ -52,7 +52,6 @@ class ProductController extends Controller
         ]);
 
             $product->categories()->sync($request->categories);
-        
 
         return redirect()->route('mypage');
     }

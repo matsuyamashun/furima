@@ -22,7 +22,6 @@ class CreateProfilesTable extends Migration
             $table->string('address');
             $table->string('building')->nullable();
             $table->timestamps();
-            
         });
     }
 

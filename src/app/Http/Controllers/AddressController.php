@@ -26,7 +26,6 @@ class AddressController extends Controller
             'building' => $request->building,
         ]
     );
-
         return redirect()->route('purchase',['id' =>$product_id]);
     }
 }

@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PurchaseRequest;
 use App\Models\Product;
+use App\Models\Transaction;
 use App\Models\Purchase;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Stripe\Stripe;
-use Stripe\Checkout\Session;
 
 class PurchaseController extends Controller
 {
@@ -47,8 +48,6 @@ class PurchaseController extends Controller
                 'payment_method' => 'コンビニ支払い',
             ]);
 
-            $product->update(['is_sold' => true]);
-
             return redirect()->route('purchase.success', ['id' => $product->id]);
         }
 
@@ -76,19 +75,28 @@ class PurchaseController extends Controller
 
     public function success($id)
     {
-        $product = Product::findOrFail($id);
+        DB::transaction(function () use ($id) {
+            $product = Product::findOrFail($id);
 
-        if (!$product->is_sold) {
+            if (!$product->is_sold) {
 
-            Purchase::create([
-                'user_id' => Auth::id(),
-                'product_id' => $product->id,
-                'payment_method' => 'カード支払い',
-            ]);
+                Purchase::create([
+                    'user_id' => Auth::id(),
+                    'product_id' => $product->id,
+                    'payment_method' => 'カード支払い',
+                ]);
 
-            $product->update(['is_sold' => true]);
-        }
+                Transaction::create([
+                    'product_id' => $product->id,
+                    'seller_id' => $product->user_id,
+                    'buyer_id' => Auth::id(),
+                    'status' => 'processing',
+                ]);
 
-        return redirect()->route('mypage');
+                $product->update(['is_sold' => true]);
+            }
+        });
+
+        return redirect()->route('mypage', ['tab' => 'processing']);
     }
 }

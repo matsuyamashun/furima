@@ -129,8 +129,15 @@
     color: rgb(136, 134, 134);
 }
 
-span {
+.menu a:hover {
     color: red;
+}
+
+span {
+    color:white;
+    background-color: red;
+    border-radius: 50%;
+    padding: 0 7px;
 }
 
 .product__list {
@@ -166,6 +173,11 @@ span {
     justify-content: center;
 }
 
+.processing-overlay {
+    color: red;
+    font-size: 20px;
+    text-align: center;
+}
 
 @media (max-width: 768px) {
 

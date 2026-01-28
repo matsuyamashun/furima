@@ -13,12 +13,22 @@ class MypageController extends Controller
         $user = Auth::user();
         $tabMypage = $request->query('tab', 'buy');
 
-        if ($tabMypage === 'sell') {
-            $myproducts = $user->purchasedProducts;
-        } else {
-            $myproducts = Product::where('user_id', $user->id)->get();
-        }
+        $sellingTransactions = $user->sellingTransactions()->where('status', 'processing');
+        $buyingTransactions = $user->buyingTransactions()->where('status', 'processing');
+        $transactionsCount = $sellingTransactions->get()->concat($buyingTransactions->get())->count();
 
-        return view('mypage', compact('user', 'myproducts', 'tabMypage'));
+        $myproducts = collect();//初期化
+        $transactions = collect();
+
+        if ($tabMypage === 'buy') {
+
+            $myproducts = Product::where('user_id', $user->id)->get();
+        } elseif ($tabMypage === 'sell') {
+
+            $myproducts = $user->purchasedProducts;
+        } elseif ($tabMypage === 'processing') {
+            $transactions = $sellingTransactions->with('product')->get()->concat($buyingTransactions->with('product')->get());
+        }
+        return view('mypage', compact('user', 'myproducts', 'tabMypage', 'transactionsCount', 'transactions'));
     }
 }

@@ -54,18 +54,39 @@
         </div>
 
         <div class="menu">
-            <a href="{{ route('mypage',['tab' => 'buy'])}}" class="menu__tab{{ $tabMypage === 'buy' ? 'active' : ''}}">
-                <span>出品した商品</span>
+            <a href="{{ route('mypage', ['tab' => 'buy'])}}" class="menu__tab{{ $tabMypage === 'buy' ? 'active' : '' }}">
+                出品した商品
             </a>
-            <a href="{{ route('mypage',[ 'tab' => 'sell' ])}}" class="menu__tab{{ $tabMypage === 'sell' ? 'active' : ''}}">
+            <a href="{{ route('mypage', [ 'tab' => 'sell' ])}}" class="menu__tab{{ $tabMypage === 'sell' ? 'active' : '' }}">
                 購入した商品
+            </a>
+            <a href="{{ route('mypage', ['tab' => 'processing'])}}" class="menu__tab{{ $tabMypage === 'processing' ? 'active' : '' }}">
+                取引中の商品
+                @if($transactionsCount > 0)
+                    <span>{{ $transactionsCount }}</span>
+                @endif
             </a>
         </div>
 
         <div class="product__list">
+            @if($tabMypage === 'processing')
+
+                @forelse($transactions as $transaction)
+                    <div class="product__card">
+                        <a href="{{ route('chat',['transaction' => $transaction->id]) }}">
+                            <img src="{{ $transaction->product->image_url ? (Str::startsWith($transaction->product->image_url, 'http') ? $transaction->product->image_url : asset('storage/' . $transaction->product->image_url)) : '' }}"  alt="商品画像" width="250" height="250">
+                            <div class="processing-overlay">取引中の商品</div>
+                            <p>{{ $transaction->product->name }}</p>
+                        </a>
+                    </div>
+                @empty
+                    <p>取引中の商品がありません</p>
+                @endforelse
+            @else
+
             @forelse($myproducts as $product)
                 <div class="product__card">
-                    <a href="{{ route('item',['id' =>$product->id]) }}">
+                    <a href="{{ route('item',['id' => $product->id]) }}">
                         <img src="{{ $product->image_url ? (Str::startsWith($product->image_url, 'http') ? $product->image_url : asset('storage/' . $product->image_url)) : '' }}"  alt="商品画像" width="250" height="250">
 
                         @if($product->is_sold)
@@ -78,5 +99,6 @@
                 <p>商品がありません</p>
             @endforelse
         </div>
+        @endif
     </main>
 </body>

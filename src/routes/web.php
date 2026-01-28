@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\CustomRegisterController;
 use App\Http\Controllers\MypageController;
@@ -9,6 +10,7 @@ use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\AddressController;
+use App\Models\Transaction;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Route;
 
@@ -41,6 +43,13 @@ Route::middleware('auth','verified')->group(function ()
 
     Route::get('/address/{product_id}',[AddressController::class,'show'])->name('address.show');
     Route::patch('/address/{product_id}',[AddressController::class,'update'])->name('address.update');
+
+    Route::get('/chat/{transaction}',[ChatController::class,'show'])->name('chat');
+    Route::post('/chat/{transaction}',[ChatController::class,'store'])->name('chat');
+    Route::put('/chat/{message}', [ChatController::class, 'update'])->name('chat.update');
+    Route::delete('/chat/{message}', [ChatController::class, 'destroy'])->name('chat.destroy');
+
+    Route::post('/transaction/{transaction}/complete', [ChatController::class, 'complete'])->name('transaction.complete');
 });
 
 Route::get('/', [ProductController::class, 'index'])->name('index');

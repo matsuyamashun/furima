@@ -1,0 +1,79 @@
+.modal {
+    position: fixed;
+    inset: 0;
+    display: none;
+    z-index: 1000;
+}
+
+/* 表示用 */
+.modal.is-active {
+    display: block;
+}
+
+/* 背景 */
+.modal__overlay {
+    position: absolute;
+    inset: 0;
+}
+
+.modal__content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff7da;
+    padding: 24px;
+    width: 90%;
+    max-width: 400px;
+    border-radius: 8px;
+}
+
+.modal__content p {
+    color: #bbbbbb;
+    font-size: 12px;
+}
+
+.modal__content button {
+    background-color: rgb(255, 0, 0);
+    color: #ffffff;
+    border: none;
+    border-radius: 3px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.modal__content form {
+    text-align: right;
+}
+
+.modal__content button:hover {
+    background-color: rgb(253, 100, 100);
+}
+
+.stars {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    gap: 8px;
+    margin: 16px 0;
+}
+
+.stars input[type="radio"] {
+    display: none;
+}
+
+.stars label {
+    font-size: 42px;
+    color: #bbb;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.stars label:hover,
+.stars label:hover ~ label {
+    color: #f5c518;
+}
+
+.stars input[type="radio"]:checked ~ label {
+    color: #f5c518;
+}
