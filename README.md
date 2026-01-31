@@ -63,6 +63,17 @@ php artisan db:seed
 - メールアドレス: user@example.com
 - パスワード: password123
 
+**No.1~No.5紐づけユーザー**
+- メールアドレス: seller1@example.com
+- パスワード: password123
+
+**No.6~No.10紐づけユーザー**
+- メールアドレス: seller2@example.com
+- パスワード: password123
+
+**未紐づけユーザー**
+- メールアドレス: no_seller@example.com
+- パスワード: password123
 
 <h2>使用技術（実行環境）</h2>
 
