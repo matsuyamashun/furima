@@ -21,7 +21,7 @@ class CreateReviewsTable extends Migration
             $table->unsignedTinyInteger('rating');
             $table->timestamps();
 
-            $table->unique('transaction_id');//1取引1回評価
+            $table->unique(['transaction_id', 'reviewer_id']);//1取引1回評価
         });
     }
 

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\CustomRegisterController;
@@ -10,7 +11,6 @@ use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\AddressController;
-use App\Models\Transaction;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Route;
 
@@ -50,6 +50,8 @@ Route::middleware('auth','verified')->group(function ()
     Route::delete('/chat/{message}', [ChatController::class, 'destroy'])->name('chat.destroy');
 
     Route::post('/transaction/{transaction}/complete', [ChatController::class, 'complete'])->name('transaction.complete');
+
+    Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews');
 });
 
 Route::get('/', [ProductController::class, 'index'])->name('index');

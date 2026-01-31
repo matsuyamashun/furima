@@ -48,6 +48,7 @@
 
                 <div class="profile__info">
                     <h2 class="profile__name">{{$user->name}}</h2>
+                    <p> ⭐ ({{ number_format($avgRating)}})</p>
                     <a class="profile__edit" href="{{ route('profile.edit') }}">プロフィールを編集</a>
                 </div>
             </div>
@@ -62,8 +63,8 @@
             </a>
             <a href="{{ route('mypage', ['tab' => 'processing'])}}" class="menu__tab{{ $tabMypage === 'processing' ? 'active' : '' }}">
                 取引中の商品
-                @if($transactionsCount > 0)
-                    <span>{{ $transactionsCount }}</span>
+                @if($unreadCount > 0)
+                    <span>{{ $unreadCount }}</span>
                 @endif
             </a>
         </div>
@@ -75,7 +76,11 @@
                     <div class="product__card">
                         <a href="{{ route('chat',['transaction' => $transaction->id]) }}">
                             <img src="{{ $transaction->product->image_url ? (Str::startsWith($transaction->product->image_url, 'http') ? $transaction->product->image_url : asset('storage/' . $transaction->product->image_url)) : '' }}"  alt="商品画像" width="250" height="250">
-                            <div class="processing-overlay">取引中の商品</div>
+                            @if($transaction->unreadCountFor(auth()->id()) > 0)
+                                <div class="processing-overlay">
+                                    {{ $transaction->unreadCountFor(auth()->id() ) }}
+                                </div>
+                            @endif
                             <p>{{ $transaction->product->name }}</p>
                         </a>
                     </div>

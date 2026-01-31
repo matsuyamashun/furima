@@ -116,7 +116,7 @@
             <form action="{{ route('chat', $transaction->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
-                <input type="text" name="chat" placeholder="取引メッセージを記入してください">
+                <input type="text" name="chat" id="chat-input" placeholder="取引メッセージを記入してください" value="{{ old('chat') }}">
 
                 <input type="file" name="image" id="chat-image" class="hidden">
 
@@ -132,16 +132,21 @@
                 @error('chat')
                     <div class="form__error">{{ $message }}</div>
                 @enderror
+
+                @error('image')
+                    <div class="form__error">{{ $message }}</div>
+                @enderror
             </form>
         </div>
-        @if( $transaction->status === 'completed' && ! $transaction->review &&
-            (
-                Auth::id() === $transaction->buyer_id || Auth::id() === $transaction->seller_id
-            )
+        @if( $transaction->status === 'completed' && ! $transaction->reviews->where('reviewer_id', Auth::id())->count()
         )
             @include('reviews.modal')
+    <script>
+        window.addEventListener('load', () => {
+            document.getElementById('review-modal')?.classList.add('is-active');
+        });
+    </script>
         @endif
-
     </main>
 </div>
 
@@ -170,12 +175,29 @@ document.querySelectorAll('.js-edit-btn').forEach(btn => {
 
 </script>
 
-
-@if (session('openReviewModal'))
 <script>
-    window.addEventListener('load', () => {
-        document.getElementById('review-modal').classList.add('is-active');
+document.addEventListener('DOMContentLoaded', () => {
+    const input = document.getElementById('chat-input');
+    if (!input) return;
+
+    // 保存されてたら復元
+    const saved = localStorage.getItem('chat_draft_{{ $transaction->id }}');
+    if (saved) {
+        input.value = saved;
+    }
+
+    // 入力されるたびに保存
+    input.addEventListener('input', () => {
+        localStorage.setItem(
+            'chat_draft_{{ $transaction->id }}',
+            input.value
+        );
     });
+
+    // 送信したら削除
+    input.closest('form').addEventListener('submit', () => {
+        localStorage.removeItem('chat_draft_{{ $transaction->id }}');
+    });
+});
 </script>
-@endif
 @endsection

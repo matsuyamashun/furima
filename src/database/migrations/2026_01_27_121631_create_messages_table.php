@@ -18,6 +18,7 @@ class CreateMessagesTable extends Migration
             $table->foreignId('transaction_id')->constrained()->cascadeOnDelete();
             $table->foreignId('sender_id')->constrained('users')->cascadeOnDelete();//誰が送ったか
             $table->text('chat');
+            $table->boolean('is_read')->default(false);
             $table->timestamps();
         });
     }

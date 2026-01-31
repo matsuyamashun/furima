@@ -74,29 +74,40 @@ class PurchaseController extends Controller
     }
 
     public function success($id)
-    {
-        DB::transaction(function () use ($id) {
-            $product = Product::findOrFail($id);
+{
+    DB::transaction(function () use ($id) {
+        $product = Product::where('id', $id)
+            ->lockForUpdate()
+            ->firstOrFail();
 
-            if (!$product->is_sold) {
+        if ($product->is_sold) {
+            return;
+        }
 
-                Purchase::create([
-                    'user_id' => Auth::id(),
-                    'product_id' => $product->id,
-                    'payment_method' => 'カード支払い',
-                ]);
+        Purchase::firstOrCreate(
+            [
+                'user_id' => Auth::id(),
+                'product_id' => $product->id,
+            ],
+            [
+                'payment_method' => 'カード支払い',
+            ]
+        );
 
-                Transaction::create([
-                    'product_id' => $product->id,
-                    'seller_id' => $product->user_id,
-                    'buyer_id' => Auth::id(),
-                    'status' => 'processing',
-                ]);
+        Transaction::firstOrCreate(
+            [
+                'product_id' => $product->id,
+            ],
+            [
+                'seller_id' => $product->user_id,
+                'buyer_id' => Auth::id(),
+                'status' => 'processing',
+            ]
+        );
 
-                $product->update(['is_sold' => true]);
-            }
-        });
+        $product->update(['is_sold' => true]);
+    });
 
-        return redirect()->route('mypage', ['tab' => 'processing']);
-    }
+    return redirect()->route('mypage', ['tab' => 'processing']);
+}
 }

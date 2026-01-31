@@ -8,10 +8,11 @@
 
         <p>今回の取引相手はどうでしたか？</p>
 
-        <form action="" method="POST">
+        <form action="{{ route('reviews')}}" method="POST">
             @csrf
 
             <input type="hidden" name="transaction_id" value="{{ $transaction->id }}">
+            <input type="hidden" name="reviewed_id" value="{{ $partner->id }}">
 
             <div class="stars">
 

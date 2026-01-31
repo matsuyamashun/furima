@@ -17,11 +17,8 @@ class ProductSeeder extends Seeder
      */
     public function run(): void
     {
-        $user = User::factory()->create([
-            'name' => 'テストユーザー',
-            'email' => 'test@example.com',
-            'password' => bcrypt('password'),
-        ]);
+        $seller1 = User::where('email', 'seller1@example.com')->first();
+        $seller2 = User::where('email', 'seller2@example.com')->first();
 
         $products = [
             [
@@ -31,7 +28,7 @@ class ProductSeeder extends Seeder
             'description'=>'スタイリッシュなデザインのメンズ腕時計',
             'image_url'=>'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Armani+Mens+Clock.jpg',
             'condition'=>'良好',
-            
+            'user_id' => $seller1->id,
         ],
         [
             'name'=>'HDD',
@@ -40,6 +37,7 @@ class ProductSeeder extends Seeder
             'description'=>'高速で信頼性の高いハードディスク',
             'image_url'=>'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/HDD+Hard+Disk.jpg',
             'condition'=>'目立った傷や汚れなし',
+            'user_id' => $seller1->id,
         ],
         [
             'name'=>'玉ねぎ３束',
@@ -48,6 +46,7 @@ class ProductSeeder extends Seeder
             'description'=>'新鮮な玉ねぎの3束セット',
             'image_url'=>'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/iLoveIMG+d.jpg',
             'condition'=>'やや傷や汚れあり',
+            'user_id' => $seller1->id,
         ],
         [
             'name'=>'革靴',
@@ -56,6 +55,7 @@ class ProductSeeder extends Seeder
             'description'=>'クラシックなデザインの革靴',
             'image_url'=>'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Leather+Shoes+Product+Photo.jpg',
             'condition'=>'状態が悪い',
+            'user_id' => $seller1->id,
         ],
         [
             'name'=>'ノートパソコン',
@@ -64,6 +64,7 @@ class ProductSeeder extends Seeder
             'description'=>'高性能なノートパソコン',
             'image_url'=>'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Living+Room+Laptop.jpg',
             'condition'=>'良好',
+            'user_id' => $seller1->id,
         ],
         [
             'name'=>'マイク',
@@ -72,6 +73,7 @@ class ProductSeeder extends Seeder
             'description'=>'高音質のレコーディング用マイク',
             'image_url'=>'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Music+Mic+4632231.jpg',
             'condition'=>'目立った傷や汚れなし',
+            'user_id' => $seller2->id,
         ],
         [
             'name'=>'ショルダーバッグ',
@@ -80,6 +82,7 @@ class ProductSeeder extends Seeder
             'description'=>'おしゃれなショルダーバッグ',
             'image_url'=>'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Purse+fashion+pocket.jpg',
             'condition'=>'やや傷や汚れあり',
+            'user_id' => $seller2->id,
         ],
         [
             'name'=>'タンブラー',
@@ -88,6 +91,7 @@ class ProductSeeder extends Seeder
             'description'=>'使いやすいタンブラー',
             'image_url'=>'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Tumbler+souvenir.jpg',
             'condition'=>'状態が悪い',
+            'user_id' => $seller2->id,
         ],
         [
             'name'=>'コーヒーミル',
@@ -96,6 +100,7 @@ class ProductSeeder extends Seeder
             'description'=>'手動のコーヒーミル',
             'image_url'=>'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Waitress+with+Coffee+Grinder.jpg',
             'condition'=>'良好',
+            'user_id' => $seller2->id,
         ],
         [
             'name'=>'メイクセット',
@@ -104,19 +109,15 @@ class ProductSeeder extends Seeder
             'description'=>'便利なメイクアップセット',
             'image_url'=>'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/%E5%A4%96%E5%87%BA%E3%83%A1%E3%82%A4%E3%82%AF%E3%82%A2%E3%83%83%E3%83%95%E3%82%9A%E3%82%BB%E3%83%83%E3%83%88.jpg',
             'condition'=>'目立った傷や汚れなし',
+            'user_id' => $seller2->id,
         ],
-    ]; 
+    ];
 
         foreach ($products as $product) {
-            $createdProduct = Product::create(array_merge($product, [
-            'user_id' => $user->id,
-        ]));
+            $createdProduct = Product::create($product);
 
         $categoryIds = Category::pluck('id')->toArray();
         $createdProduct->categories()->attach(Arr::random($categoryIds, rand(1, 3)));
         }
-
-
     }
 }
-

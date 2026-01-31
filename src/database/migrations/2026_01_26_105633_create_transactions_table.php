@@ -20,6 +20,8 @@ class CreateTransactionsTable extends Migration
             $table->foreignId('buyer_id')->constrained('users')->cascadeOnDelete();
             $table->string('status')->default('processing'); //processing //completed
             $table->timestamps();
+
+            $table->unique('product_id');
         });
     }
 

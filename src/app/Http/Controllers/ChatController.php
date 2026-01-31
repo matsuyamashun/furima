@@ -6,16 +6,25 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Transaction;
 use App\Models\Message;
 use App\Http\Requests\ChatRequest;
+use App\Mail\TransactionCompletedMail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class ChatController extends Controller
 {
     public function show(Transaction $transaction)
     {
+        $transaction ->load('reviews');
+
         $messages = $transaction->messages()
             ->with('sender.profile')
             ->orderBy('created_at')
             ->get();
+
+        $transaction->messages()
+            ->where('sender_id', '!=', Auth::id())
+            ->where('is_read', false)
+            ->update(['is_read' => true]);
 
         $partner = Auth::id() === $transaction->seller_id ? $transaction->buyer : $transaction->seller;
 
@@ -24,6 +33,7 @@ class ChatController extends Controller
                 ->orWhere('seller_id', auth()->id());
             })
             ->where('id', '!=', $transaction->id) // 今見てる取引は除外
+            ->where('status', '!=', 'finished')//取引終了でも除外
             ->with('product')
             ->get();
 
@@ -51,6 +61,7 @@ class ChatController extends Controller
             'sender_id' => Auth::id(),
             'chat' => $request->chat,
             'image' => $path,
+            'is_read' => false,
         ]);
 
         return redirect()->route('chat', $transaction->id);
@@ -85,6 +96,9 @@ class ChatController extends Controller
         $transaction->update([
             'status' => 'completed',
         ]);
+
+        Mail::to($transaction->seller->email)
+            ->send(new TransactionCompletedMail($transaction));
 
         return redirect()->route('chat', $transaction->id)->with('openReviewModal', true);
     }
