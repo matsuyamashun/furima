@@ -194,6 +194,46 @@ erDiagram
     }
 
     %% ======================
+    %% Transactions
+    %% ======================
+    transactions {
+        bigint id PK
+        bigint product_id FK
+        bigint seller_id FK
+        bigint buyer_id FK
+        varchar status
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    %% ======================
+    %% Messages
+    %% ======================
+    messages {
+        bigint id PK
+        bigint transaction_id FK
+        bigint sender_id FK
+        varchar chat
+        varchar image
+        boolean is_read
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    %% ======================
+    %% Reviews
+    %% ======================
+    reviews {
+        bigint id PK
+        bigint transaction_id FK
+        bigint reviewer_id FK
+        bigint reviewed_id FK
+        unsignedTinyInteger rating
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    %% ======================
     %% Relations
     %% ======================
 
