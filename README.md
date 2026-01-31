@@ -213,16 +213,32 @@ erDiagram
     users ||--o{ purchases : "1対多"
     products ||--o{ purchases : "1対多"
 
+    transactions ||--o{ messages : "1対多"
+    users ||--o{ messages : "1対多"
+
+    transactions ||--o{ reviews : "1対多"
+    users ||--o{ reviews : "reviewer"    
+    users ||--o{ reviews : "reviewed"
+    
 ```
 
  <h2>URL</h2>
 
  ・  開発環境::http://localhost
 
- .　メール認証::http://localhost:8025/
+ .　メール認証::http://localhost:8025/　（会員登録後、購入者の取引完了後の２パターンあり）
 
  .  phpMyAdmin::http://localhost:8080/
 
  .　　カード支払いについては[https://zenn.dev/h_yokoyama/articles/html-select-style　](https://docs.stripe.com/testing#testing-interactively)
  　　　こちらを参考にしてください
 
+<h2>テストについて</h2>
+
+.Unitテスト実施済み
+
+<h2>今回追加したチャット機能について</h2>
+
+.出品者のみ編集・削除できる（購入者は不可）
+
+.取引後の評価のボタンは購入者のみある。購入者が評価後、出品者が取引中のタブより評価できる（両者評価で取引完了）
