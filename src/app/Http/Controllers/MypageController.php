@@ -25,32 +25,35 @@ class MypageController extends Controller
             ->where('is_read', false)
             ->count();
 
+        $myproducts = collect();//初期化
+        $transactions = collect();
+
         //自動ソート
-        $transactions = Transaction::where(function ($q) use ($user) {
-            $q->where('buyer_id', $user->id)
+        if ($tabMypage === 'processing') {
+            $transactions = Transaction::where(function ($q) use ($user) {
+                $q->where('buyer_id', $user->id)
                 ->orWhere('seller_id', $user->id);
         })
             ->whereIn('status', ['processing', 'completed'])
             ->with('product')
-            ->withMax('messages', 'created_at')
-            ->orderByDesc('messages_max_created_at')
-            ->get();
-
-        $myproducts = collect();//初期化
-        $transactions = collect();
-
-        if ($tabMypage === 'buy') {
+            ->withMax(['messages as last_received_at' => function ($q) use ($user) {
+                $q->where('sender_id', '!=', $user->id);
+        }], 'created_at')
+        ->orderByRaw('last_received_at IS NULL ASC')
+        ->orderByDesc('last_received_at')
+        ->get();
+        } elseif ($tabMypage === 'buy') {
 
             $myproducts = Product::where('user_id', $user->id)->get();
         } elseif ($tabMypage === 'sell') {
 
             $myproducts = $user->purchasedProducts;
-        } elseif ($tabMypage === 'processing') {
-            $transactions = $sellingTransactions->with('product')->get()->concat($buyingTransactions->with('product')->get());
         }
 
         $avgRating = $user->receivedReviews()->avg('rating');
 
-        return view('mypage', compact('user', 'myproducts', 'tabMypage', 'unreadCount', 'transactions', 'avgRating'));
+        $rating = round($avgRating);
+
+        return view('mypage', compact('user', 'myproducts', 'tabMypage', 'unreadCount', 'transactions', 'rating'));
     }
 }

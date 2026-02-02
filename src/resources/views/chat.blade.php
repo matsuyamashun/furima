@@ -66,7 +66,25 @@
                             <p>{{ $transaction->buyer->name }}</p>
                         </div>
 
-                        <p class="chat__message">{{ $message->chat }}</p>
+                        <p class="chat__message js-display">{{ $message->chat }}</p>
+
+                        @if(Auth::id() === $message->sender_id)
+                            <div class="chat__action">
+                                <form action="{{ route('chat.update', $message->id) }}" method="POST" class="js-edit-form hidden">
+                                    @csrf
+                                    @method('PUT')
+                                    <input type="text" name="chat" value="{{ $message->chat }}">
+                                </form>
+
+                                <button type="submit" class="js-edit-btn">編集</button>
+
+                                <form action="{{ route('chat.destroy', $message->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit">削除</button>
+                                </form>
+                            </div>
+                        @endif
 
                         @if($message->image)
                             <img src="{{ asset('storage/' .$message->image )}}" width="150px" height="200px">
@@ -90,7 +108,7 @@
                             <img src="{{ asset('storage/' .$message->image)}}" width="150px" height="200px">
                         @endif
 
-                        @if(Auth::id() === $transaction->seller_id && Auth::id() === $message->sender_id)
+                        @if(Auth::id() === $message->sender_id)
                             <div class="chat__action">
                                 <form action="{{ route('chat.update', $message->id) }}" method="POST" class="js-edit-form hidden">
                                     @csrf

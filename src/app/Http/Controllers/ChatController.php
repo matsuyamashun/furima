@@ -71,6 +71,10 @@ class ChatController extends Controller
     {
         $message = Message::findOrFail($id);
 
+        if ($message->sender_id !== Auth::id()) {
+            abort(403);
+        }
+
         $message->update([
             'chat' => $request->chat,
         ]);
@@ -81,6 +85,10 @@ class ChatController extends Controller
     public function destroy($id)
     {
         $message = Message::findOrFail($id);
+
+        if ($message->sender_id !== Auth::id()) {
+            abort(403);
+        }
 
         $message->delete();
 

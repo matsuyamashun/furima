@@ -33,7 +33,7 @@ class ChatRequest extends FormRequest
     {
         return [
             'chat.required' => '本文を入力してください',
-            'chat.max'      => '本文はmax:文字以内で入力してください',
+            'chat.max'      => '本文は400文字以内で入力してください',
             'image.mimes'      => '「.png」または「.jpeg」形式でアップロードしてください',
         ];
     }

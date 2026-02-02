@@ -48,9 +48,19 @@
 
                 <div class="profile__info">
                     <h2 class="profile__name">{{$user->name}}</h2>
-                    <p> ⭐ ({{ number_format($avgRating)}})</p>
-                    <a class="profile__edit" href="{{ route('profile.edit') }}">プロフィールを編集</a>
+
+                    <div class="profile__rating">
+                        @for ($i = 1; $i <= 5; $i++)
+                            @if ($i <= $rating)
+                                <span class="star filled">⭐</span>
+                            @else
+                                <span class="star">☆</span>
+                            @endif
+                        @endfor
+                    </div>
                 </div>
+
+                <a class="profile__edit" href="{{ route('profile.edit') }}">プロフィールを編集</a>
             </div>
         </div>
 
@@ -64,7 +74,7 @@
             <a href="{{ route('mypage', ['tab' => 'processing'])}}" class="menu__tab{{ $tabMypage === 'processing' ? 'active' : '' }}">
                 取引中の商品
                 @if($unreadCount > 0)
-                    <span>{{ $unreadCount }}</span>
+                    <span clas="unreadCount">{{ $unreadCount }}</span>
                 @endif
             </a>
         </div>

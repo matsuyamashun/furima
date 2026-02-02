@@ -24,7 +24,6 @@ class CreateReviewsTable extends Migration
             $table->unique(['transaction_id', 'reviewer_id']);//1取引1回評価
         });
     }
-
     /**
      * Reverse the migrations.
      *
